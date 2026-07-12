@@ -12,17 +12,20 @@ CivilianIQ is a real-time, AI-powered legal rights advisor that helps citizens
 understand and assert their rights during police encounters. It combines:
 
 1. **Situation search** — Describe what's happening (in English, Hindi, or Hinglish)
-   and get your rights card with the exact words to say
-2. **Live recording** — Record the encounter with camera, GPS, and timestamp metadata
-3. **AI legal coach** — Real-time speech transcription analyzes what the officer is
-   saying and suggests what you should say back, grounded in verified statutes
+   and get a bilingual (EN/HI) rights card with the exact words to say, plus a
+   plain-language glossary for any legal jargon
+2. **Live recording** — Record the encounter with camera, GPS, and timestamp metadata,
+   with a live, speaker-separated transcript ("Officer" vs "You")
+3. **AI legal coach** — Analyzes the live transcript (automatically, a few seconds after
+   you pause, or on demand) and suggests what right applies and what to say back —
+   grounded in verified statutes, in both English and Hindi
 
 ## Tech stack
 
 - **Next.js 14** — React framework with API routes
 - **Tailwind CSS** — Utility-first styling
-- **Claude API (Sonnet)** — AI classification and real-time coaching
-- **Web Speech API** — Browser-native speech-to-text for live transcription
+- **Claude API (Sonnet)** — AI classification, bilingual translation, and real-time coaching
+- **Deepgram (Nova-2)** — Live, speaker-diarized speech-to-text over WebSocket
 - **MediaRecorder API** — Video/audio evidence capture
 - **Geolocation API** — GPS metadata for evidence
 
@@ -43,9 +46,11 @@ git clone https://github.com/YOUR_USERNAME/civilianiq.git
 cd civilianiq
 npm install
 
-# 2. Add your Anthropic API key
+# 2. Add your API keys
 cp .env.local.example .env.local
-# Edit .env.local and add: ANTHROPIC_API_KEY=sk-ant-xxxxx
+# Edit .env.local and add:
+#   ANTHROPIC_API_KEY=sk-ant-xxxxx
+#   DEEPGRAM_API_KEY=xxxxx        (free key from console.deepgram.com)
 
 # 3. Run locally
 npm run dev
@@ -61,19 +66,24 @@ npx vercel
 civilianiq/
 ├── src/
 │   ├── app/
-│   │   ├── page.js           # Main search + rights card
-│   │   ├── record/page.js    # Recording + live AI coach
+│   │   ├── page.js              # Main search + rights cards + glossary
+│   │   ├── record/page.js       # Recording + live diarized transcript + AI coach
 │   │   ├── api/
-│   │   │   ├── classify/     # AI situation classification
-│   │   │   └── coach/        # Real-time transcript analysis
+│   │   │   ├── classify/        # AI situation classification (bilingual)
+│   │   │   ├── coach/           # Real-time transcript analysis (bilingual)
+│   │   │   └── deepgram-token/  # Mints short-lived Deepgram keys for the browser
 │   │   ├── layout.js
 │   │   └── globals.css
 │   ├── components/
-│   │   └── RightsCard.js     # Rights card with EN/HI toggle
-│   └── data/
-│       └── srt-india.js      # Situational Rights Taxonomy
+│   │   ├── RightsCard.js        # Rights card with bilingual EN/HI content
+│   │   ├── Bilingual.js         # BiBlock / BiInline bilingual text helpers
+│   │   └── Glossary.js          # Plain-language legal jargon glossary
+│   ├── data/
+│   │   └── srt-india.js         # Situational Rights Taxonomy
+│   └── lib/
+│       └── anthropic.js         # Shared Anthropic client
 ├── public/
-│   └── manifest.json         # PWA manifest
+│   └── manifest.json            # PWA manifest
 └── package.json
 ```
 

@@ -1,9 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getAnthropicClient } from '@/lib/anthropic';
 import { entries } from '@/data/srt-india';
+import type { CoachResponse } from '@/types';
 
-export async function POST(request) {
-  const { transcript } = await request.json();
+export async function POST(request: NextRequest) {
+  const { transcript }: { transcript?: string } = await request.json();
 
   if (!transcript || typeof transcript !== 'string' || !transcript.trim()) {
     return NextResponse.json({ error: 'transcript is required' }, { status: 400 });
@@ -99,11 +100,11 @@ export async function POST(request) {
   }
 
   const textBlock = response.content.find((b) => b.type === 'text');
-  let parsed;
+  let parsed: CoachResponse;
   try {
-    parsed = JSON.parse(textBlock.text);
+    parsed = JSON.parse(textBlock!.text);
   } catch (err) {
-    console.error('coach: JSON parse failed', err, textBlock?.text);
+    console.error('coach: JSON parse failed', err, textBlock && 'text' in textBlock ? textBlock.text : undefined);
     return NextResponse.json({ error: 'Could not parse coaching result' }, { status: 502 });
   }
 

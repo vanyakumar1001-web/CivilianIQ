@@ -1,8 +1,8 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-let client;
+let client: Anthropic | undefined;
 
-export function getAnthropicClient() {
+export function getAnthropicClient(): Anthropic {
   if (!client) {
     client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   }

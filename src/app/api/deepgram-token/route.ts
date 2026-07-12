@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 // Cached for the life of this server process — avoids one extra Deepgram
 // call per session just to look up an id that never changes.
-let cachedProjectId = null;
+let cachedProjectId: string | null = null;
 
-async function getProjectId(apiKey) {
+async function getProjectId(apiKey: string): Promise<string> {
   if (cachedProjectId) return cachedProjectId;
 
   const res = await fetch('https://api.deepgram.com/v1/projects', {
@@ -13,7 +13,7 @@ async function getProjectId(apiKey) {
   if (!res.ok) {
     throw new Error(`Failed to list Deepgram projects (${res.status})`);
   }
-  const data = await res.json();
+  const data: { projects?: { project_id: string }[] } = await res.json();
   const projectId = data?.projects?.[0]?.project_id;
   if (!projectId) throw new Error('No Deepgram project found for this API key');
 
@@ -51,7 +51,7 @@ export async function POST() {
       return NextResponse.json({ error: 'Could not start live transcription' }, { status: 502 });
     }
 
-    const data = await res.json();
+    const data: { key: string } = await res.json();
     return NextResponse.json({ key: data.key });
   } catch (err) {
     console.error('deepgram-token: error', err);

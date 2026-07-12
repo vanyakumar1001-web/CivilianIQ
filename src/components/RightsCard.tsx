@@ -2,24 +2,36 @@
 
 import { useState } from 'react';
 import { BiInline } from '@/components/Bilingual';
+import type { MatchedRightsEntry, Severity } from '@/types';
 
-const SEVERITY_COLORS = {
+const SEVERITY_COLORS: Record<Severity, string> = {
   critical: 'bg-rose-100 text-rose-700 border-rose-300',
   high: 'bg-orange-100 text-orange-700 border-orange-300',
   medium: 'bg-amber-100 text-amber-700 border-amber-300',
   low: 'bg-emerald-100 text-emerald-700 border-emerald-300',
 };
 
-function HiLine({ text, className = '' }) {
+interface HiLineProps {
+  text?: string;
+  className?: string;
+}
+
+// Devanagari needs to run larger and at full contrast to read as easily as the
+// Latin text beside it — never shrink or dim the Hindi line relative to English.
+function HiLine({ text, className = 'text-ink' }: HiLineProps) {
   if (!text) return null;
   return (
-    <span lang="hi" className={`block font-devanagari text-[0.9em] text-ink-light mt-0.5 ${className}`}>
+    <span lang="hi" className={`block font-devanagari font-medium text-[1.05em] leading-relaxed mt-1 ${className}`}>
       {text}
     </span>
   );
 }
 
-export default function RightsCard({ entry }) {
+interface RightsCardProps {
+  entry: MatchedRightsEntry;
+}
+
+export default function RightsCard({ entry }: RightsCardProps) {
   const [copied, setCopied] = useState(false);
   const [showEscalation, setShowEscalation] = useState(false);
 
@@ -34,7 +46,7 @@ export default function RightsCard({ entry }) {
   }
 
   return (
-    <div className="rounded-2xl border border-peach bg-white/60 shadow-soft p-5">
+    <div className="rounded-2xl border border-peach/40 bg-brown-light/70 backdrop-blur-sm shadow-soft p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lift hover:border-peach/70">
       <div className="flex items-center justify-between gap-2 mb-2">
         <h2 className="font-semibold text-lg text-ink">
           {entry.situation_description}
@@ -59,18 +71,21 @@ export default function RightsCard({ entry }) {
       </p>
       <p className="text-xs text-ink-faint mb-4">{entry.right_formal}</p>
 
-      <div className="rounded-xl bg-cream border border-peach p-4 mb-4">
+      <div className="rounded-xl bg-butter/90 border border-peach/40 p-4 mb-4">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-xs uppercase tracking-wide text-ink-faint">
+          <span className="text-xs uppercase tracking-wide text-brown/60">
             <BiInline en="What to say" hi="क्या कहें" />
           </span>
-          <button onClick={copyScript} className="text-xs text-accent hover:underline">
+          <button
+            onClick={copyScript}
+            className="text-xs text-brown font-semibold hover:underline active:scale-95 transition-transform"
+          >
             {copied ? <BiInline en="Copied!" hi="कॉपी हो गया!" /> : <BiInline en="Copy" hi="कॉपी करें" />}
           </button>
         </div>
-        <p className="text-sm text-ink">
+        <p className="text-sm text-brown">
           {entry.script}
-          <HiLine text={entry.hi?.script} />
+          <HiLine text={entry.hi?.script} className="text-brown" />
         </p>
       </div>
 
@@ -86,17 +101,17 @@ export default function RightsCard({ entry }) {
       </button>
 
       {showEscalation && (
-        <ol className="list-decimal list-inside text-sm text-ink space-y-2 mb-3">
+        <ol className="list-decimal list-inside text-sm text-ink space-y-3 mb-3 animate-fade-in-up">
           {entry.escalation.map((step, i) => (
             <li key={i}>
               {step}
-              <HiLine text={entry.hi?.escalation?.[i]} className="ml-5" />
+              <HiLine text={entry.hi?.escalation?.[i]} className="text-ink ml-5" />
             </li>
           ))}
         </ol>
       )}
 
-      <p className="text-xs text-rose-700/80 mb-2">
+      <p className="text-xs text-rose-300/90 mb-2">
         <span className="font-semibold">
           <BiInline en="Do not:" hi="यह न करें:" />
         </span>{' '}

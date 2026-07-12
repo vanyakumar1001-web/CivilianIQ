@@ -1,9 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getAnthropicClient } from '@/lib/anthropic';
 import { entries } from '@/data/srt-india';
+import type { ClassifyResponse, MatchedRightsEntry, HiTranslation, GlossaryTerm } from '@/types';
 
-export async function POST(request) {
-  const { query } = await request.json();
+interface ClassifyMatch {
+  id: string;
+  reason: string;
+  hi: HiTranslation;
+}
+
+interface ClassifyModelOutput {
+  matches: ClassifyMatch[];
+  glossary: GlossaryTerm[];
+}
+
+export async function POST(request: NextRequest) {
+  const { query }: { query?: string } = await request.json();
 
   if (!query || typeof query !== 'string' || !query.trim()) {
     return NextResponse.json({ error: 'query is required' }, { status: 400 });
@@ -109,20 +121,21 @@ export async function POST(request) {
   }
 
   const textBlock = response.content.find((b) => b.type === 'text');
-  let parsed;
+  let parsed: ClassifyModelOutput;
   try {
-    parsed = JSON.parse(textBlock.text);
+    parsed = JSON.parse(textBlock!.text);
   } catch (err) {
-    console.error('classify: JSON parse failed', err, textBlock?.text);
+    console.error('classify: JSON parse failed', err, textBlock && 'text' in textBlock ? textBlock.text : undefined);
     return NextResponse.json({ error: 'Could not parse classification result' }, { status: 502 });
   }
 
-  const results = parsed.matches
-    .map((m) => {
+  const results: MatchedRightsEntry[] = parsed.matches
+    .map((m): MatchedRightsEntry | null => {
       const entry = entries.find((e) => e.id === m.id);
       return entry ? { ...entry, match_reason: m.reason, hi: m.hi } : null;
     })
-    .filter(Boolean);
+    .filter((e): e is MatchedRightsEntry => e !== null);
 
-  return NextResponse.json({ results, glossary: parsed.glossary || [] });
+  const body: ClassifyResponse = { results, glossary: parsed.glossary || [] };
+  return NextResponse.json(body);
 }
