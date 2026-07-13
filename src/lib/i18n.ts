@@ -21,7 +21,10 @@ export const COUNTRIES: CountryOption[] = [
     code: 'IN',
     label: 'India',
     flag: '🇮🇳',
-    languages: [{ code: 'hi', label: 'Hindi', nativeLabel: 'हिंदी', fontClass: 'font-devanagari' }],
+    languages: [
+      { code: 'en', label: 'English', nativeLabel: 'English' },
+      { code: 'hi', label: 'Hindi', nativeLabel: 'हिंदी', fontClass: 'font-devanagari' },
+    ],
   },
   {
     code: 'US',
@@ -37,7 +40,10 @@ export const COUNTRIES: CountryOption[] = [
     code: 'CN',
     label: 'China',
     flag: '🇨🇳',
-    languages: [{ code: 'zh', label: 'Mandarin', nativeLabel: '中文', fontClass: 'font-chinese' }],
+    languages: [
+      { code: 'en', label: 'English', nativeLabel: 'English' },
+      { code: 'zh', label: 'Mandarin', nativeLabel: '中文', fontClass: 'font-chinese' },
+    ],
   },
 ];
 
