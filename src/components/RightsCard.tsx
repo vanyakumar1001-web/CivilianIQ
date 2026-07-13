@@ -21,12 +21,14 @@ interface TranslatedLineProps {
 
 // Non-Latin scripts (like Devanagari) need to run larger and at full contrast to
 // read as easily as the Latin text beside them — never shrink or dim this line.
+// When English itself is the chosen language, there's nothing to pair it with.
 function TranslatedLine({ text, className = 'text-ink', languageOption }: TranslatedLineProps) {
-  if (!text) return null;
+  if (!text || !languageOption || languageOption.code === 'en') return null;
   return (
     <span
-      lang={languageOption?.code}
-      className={`block ${languageOption?.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1 ${className}`}
+      lang={languageOption.code}
+      dir={languageOption.dir}
+      className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1 ${className}`}
     >
       {text}
     </span>

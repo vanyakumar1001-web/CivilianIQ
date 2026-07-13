@@ -23,12 +23,15 @@ export default function Glossary({ terms }: GlossaryProps) {
             <dt className="text-sm font-semibold text-ink">{t.term}</dt>
             <dd className="text-sm text-ink-light">
               {t.explanation_en}
-              <span
-                lang={languageOption?.code}
-                className={`block ${languageOption?.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink mt-1`}
-              >
-                {t.explanation_translated}
-              </span>
+              {languageOption && languageOption.code !== 'en' && (
+                <span
+                  lang={languageOption.code}
+                  dir={languageOption.dir}
+                  className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink mt-1`}
+                >
+                  {t.explanation_translated}
+                </span>
+              )}
             </dd>
           </div>
         ))}

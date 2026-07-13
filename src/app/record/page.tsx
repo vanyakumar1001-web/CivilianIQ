@@ -114,7 +114,9 @@ export default function RecordPage() {
 
     // model=nova-3 + language=multi enables automatic code-switching, so English and
     // the chosen secondary language can be spoken interchangeably without picking one.
-    const url = `wss://api.deepgram.com/v1/listen?model=nova-3&language=multi&diarize=true&smart_format=true&punctuate=true&interim_results=true&endpointing=300`;
+    // If English itself is the chosen language, there's nothing to switch between.
+    const dgLanguage = languageOption?.code === 'en' ? 'en' : 'multi';
+    const url = `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLanguage}&diarize=true&smart_format=true&punctuate=true&interim_results=true&endpointing=300`;
 
     let ws: WebSocket;
     try {
@@ -363,9 +365,15 @@ export default function RecordPage() {
         {error && (
           <p className="text-rose-300 text-sm mb-4">
             {error.en}
-            <span lang={languageOption.code} className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1`}>
-              {error.translated}
-            </span>
+            {languageOption.code !== 'en' && (
+              <span
+                lang={languageOption.code}
+                dir={languageOption.dir}
+                className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1`}
+              >
+                {error.translated}
+              </span>
+            )}
           </p>
         )}
 
@@ -396,11 +404,12 @@ export default function RecordPage() {
           )}
         </div>
 
-        {sttSupported && (
+        {sttSupported && languageOption.code !== 'en' && (
           <p className="text-xs text-ink-faint mb-6">
             {t('autoLangDetect').en.replace('{lang}', languageOption.label)}
             <span
               lang={languageOption.code}
+              dir={languageOption.dir}
               className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink-light mt-1`}
             >
               {t('autoLangDetect').translated.replace('{lang}', languageOption.nativeLabel)}
@@ -413,9 +422,15 @@ export default function RecordPage() {
         {sttError && (
           <p className="text-xs text-rose-300 mb-4">
             {sttError.en}
-            <span lang={languageOption.code} className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1`}>
-              {sttError.translated}
-            </span>
+            {languageOption.code !== 'en' && (
+              <span
+                lang={languageOption.code}
+                dir={languageOption.dir}
+                className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1`}
+              >
+                {sttError.translated}
+              </span>
+            )}
           </p>
         )}
 
@@ -487,9 +502,10 @@ export default function RecordPage() {
             </h2>
             <p className="text-sm text-ink mb-3">
               {coach.advice_en}
-              {coach.advice_translated && (
+              {coach.advice_translated && languageOption.code !== 'en' && (
                 <span
                   lang={languageOption.code}
+                  dir={languageOption.dir}
                   className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink mt-1`}
                 >
                   {coach.advice_translated}
@@ -503,9 +519,10 @@ export default function RecordPage() {
                 </span>
                 <p className="text-sm text-brown mt-1">
                   {coach.say_this_en}
-                  {coach.say_this_translated && (
+                  {coach.say_this_translated && languageOption.code !== 'en' && (
                     <span
                       lang={languageOption.code}
+                      dir={languageOption.dir}
                       className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-brown mt-1`}
                     >
                       {coach.say_this_translated}

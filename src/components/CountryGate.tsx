@@ -57,10 +57,18 @@ export default function CountryGate() {
                 <button
                   key={l.code}
                   onClick={() => pickLanguage(l.code)}
-                  className={`rounded-xl border border-peach/40 bg-brown-light/60 px-4 py-3 text-left text-ink hover:border-blush-deep hover:-translate-y-0.5 transition-all active:scale-[0.98] ${l.fontClass || ''}`}
+                  className="rounded-xl border border-peach/40 bg-brown-light/60 px-4 py-3 text-left text-ink hover:border-blush-deep hover:-translate-y-0.5 transition-all active:scale-[0.98]"
                 >
                   <span className="font-medium">
-                    {l.label} · {l.nativeLabel}
+                    {l.label}
+                    {l.nativeLabel !== l.label && (
+                      <>
+                        {' · '}
+                        <span lang={l.code} dir={l.dir} className={l.fontClass || ''}>
+                          {l.nativeLabel}
+                        </span>
+                      </>
+                    )}
                   </span>
                 </button>
               ))}
