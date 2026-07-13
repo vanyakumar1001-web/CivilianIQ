@@ -1,5 +1,5 @@
-export type LanguageCode = 'en' | 'hi' | 'es' | 'fr' | 'zh';
-export type CountryCode = 'IN' | 'US' | 'CN';
+export type LanguageCode = 'en' | 'hi' | 'es' | 'fr' | 'zh' | 'ru';
+export type CountryCode = 'IN' | 'US' | 'CN' | 'RU';
 
 export interface LanguageOption {
   code: LanguageCode;
@@ -45,6 +45,15 @@ export const COUNTRIES: CountryOption[] = [
       { code: 'zh', label: 'Mandarin', nativeLabel: '中文', fontClass: 'font-chinese' },
     ],
   },
+  {
+    code: 'RU',
+    label: 'Russia',
+    flag: '🇷🇺',
+    languages: [
+      { code: 'en', label: 'English', nativeLabel: 'English' },
+      { code: 'ru', label: 'Russian', nativeLabel: 'Русский' },
+    ],
+  },
 ];
 
 export function getCountry(code: CountryCode): CountryOption | undefined {
@@ -61,6 +70,7 @@ export const LANGUAGE_NAMES: Record<LanguageCode, string> = {
   es: 'Spanish',
   fr: 'French',
   zh: 'Mandarin Chinese',
+  ru: 'Russian',
 };
 
 type SecondaryLanguageCode = Exclude<LanguageCode, 'en'>;
@@ -73,6 +83,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Conoce tus derechos. En el momento que más importa.',
     fr: 'Connaissez vos droits. Au moment où cela compte.',
     zh: '了解你的权利。在最重要的时刻。',
+    ru: 'Знайте свои права. В тот момент, когда это важнее всего.',
   },
   reassurance: {
     en: "Take a breath, you're not alone here.",
@@ -80,6 +91,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Respira hondo, no estás solo aquí.',
     fr: "Respirez profondément, vous n'êtes pas seul ici.",
     zh: '深呼吸，你在这里并不孤单。',
+    ru: 'Сделайте глубокий вдох, вы здесь не одни.',
   },
   searchPlaceholder: {
     en: "Describe what's happening…",
@@ -87,6 +99,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Describe lo que está pasando…',
     fr: 'Décrivez ce qui se passe…',
     zh: '描述正在发生的事情…',
+    ru: 'Опишите, что происходит…',
   },
   searching: {
     en: 'Searching…',
@@ -94,6 +107,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Buscando…',
     fr: 'Recherche en cours…',
     zh: '搜索中…',
+    ru: 'Идёт поиск…',
   },
   search: {
     en: 'Search',
@@ -101,6 +115,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Buscar',
     fr: 'Rechercher',
     zh: '搜索',
+    ru: 'Поиск',
   },
   noResults_IN: {
     en: 'No matching rights entry found. Try describing the situation differently, or call the NALSA helpline 15100.',
@@ -115,12 +130,17 @@ export const translations: Record<string, TranslationEntry> = {
     en: 'No matching rights entry found. Try describing the situation differently, or call the national legal aid hotline 12348.',
     zh: '未找到匹配的权利条目。请尝试用不同方式描述情况，或拨打全国法律援助热线 12348 寻求帮助。',
   },
+  noResults_RU: {
+    en: 'No matching rights entry found. Try describing the situation differently, or contact a lawyer or legal aid organization for help.',
+    ru: 'Подходящая статья не найдена. Попробуйте описать ситуацию по-другому, или обратитесь к адвокату либо в организацию бесплатной юридической помощи.',
+  },
   goToRecord: {
     en: 'Go to Live Recording + AI Coach →',
     hi: 'लाइव रिकॉर्डिंग + AI कोच →',
     es: 'Ir a Grabación en Vivo + Asistente IA →',
     fr: "Aller à l'Enregistrement en Direct + Coach IA →",
     zh: '前往实时录制 + AI 教练 →',
+    ru: 'Перейти к записи в реальном времени + ИИ-помощник →',
   },
   backToSearch: {
     en: '← Back to search',
@@ -128,6 +148,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: '← Volver a la búsqueda',
     fr: '← Retour à la recherche',
     zh: '← 返回搜索',
+    ru: '← Назад к поиску',
   },
   recordDescription: {
     en: 'Records video/audio evidence with GPS + timestamp, transcribes speech live with real speaker separation, and automatically analyzes it for coaching.',
@@ -135,6 +156,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Graba evidencia de video/audio con GPS y hora, transcribe el habla en vivo separando quién habla, y lo analiza automáticamente para darte orientación.',
     fr: "Enregistre des preuves vidéo/audio avec GPS et horodatage, transcrit la parole en direct en séparant les interlocuteurs, et l'analyse automatiquement pour vous conseiller.",
     zh: '通过 GPS 和时间戳记录视频/音频证据，实时转录语音并区分说话者，并自动分析以提供指导。',
+    ru: 'Записывает видео- и аудиодоказательства с GPS и временной меткой, распознаёт речь в реальном времени с разделением по говорящим и автоматически анализирует её, чтобы дать рекомендации.',
   },
   startRecording: {
     en: 'Start Recording',
@@ -142,6 +164,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Iniciar Grabación',
     fr: "Démarrer l'Enregistrement",
     zh: '开始录制',
+    ru: 'Начать запись',
   },
   stopRecording: {
     en: 'Stop Recording',
@@ -149,6 +172,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Detener Grabación',
     fr: "Arrêter l'Enregistrement",
     zh: '停止录制',
+    ru: 'Остановить запись',
   },
   downloadRecording: {
     en: 'Download recording',
@@ -156,6 +180,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Descargar grabación',
     fr: "Télécharger l'enregistrement",
     zh: '下载录音',
+    ru: 'Скачать запись',
   },
   speakingIn: {
     en: 'Speaking in',
@@ -163,6 +188,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Hablando en',
     fr: 'Parler en',
     zh: '使用语言',
+    ru: 'Язык речи',
   },
   sttNotSupported: {
     en: "Live speech transcription isn't supported in this browser. Try Chrome or Edge.",
@@ -170,6 +196,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'La transcripción de voz en vivo no es compatible con este navegador. Prueba con Chrome o Edge.',
     fr: "La transcription vocale en direct n'est pas prise en charge par ce navigateur. Essayez Chrome ou Edge.",
     zh: '此浏览器不支持实时语音转录。请尝试使用 Chrome 或 Edge。',
+    ru: 'Распознавание речи в реальном времени не поддерживается в этом браузере. Попробуйте Chrome или Edge.',
   },
   liveTranscript: {
     en: 'Live transcript',
@@ -177,6 +204,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Transcripción en vivo',
     fr: 'Transcription en direct',
     zh: '实时转录',
+    ru: 'Расшифровка в реальном времени',
   },
   listening: {
     en: 'Listening…',
@@ -184,6 +212,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Escuchando…',
     fr: 'Écoute en cours…',
     zh: '正在聆听…',
+    ru: 'Слушаю…',
   },
   whoSaidWhat: {
     en: 'Who said what',
@@ -191,6 +220,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Quién dijo qué',
     fr: 'Qui a dit quoi',
     zh: '谁说了什么',
+    ru: 'Кто что сказал',
   },
   turnsDisclaimer: {
     en: "Speakers are separated live by voice; roles (Officer/You) are the AI's best guess from what's said.",
@@ -198,6 +228,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Los hablantes se separan en vivo por voz; los roles (Oficial/Tú) son la mejor estimación de la IA según lo dicho.',
     fr: "Les locuteurs sont séparés en direct par la voix ; les rôles (Agent/Vous) sont la meilleure estimation de l'IA d'après ce qui est dit.",
     zh: '系统会根据声音实时区分说话者；角色（警官/你）是 AI 根据对话内容做出的最佳判断。',
+    ru: 'Говорящие разделяются в реальном времени по голосу; роли (Сотрудник/Вы) — это предположение ИИ на основе сказанного.',
   },
   you: {
     en: 'You',
@@ -205,6 +236,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Tú',
     fr: 'Vous',
     zh: '你',
+    ru: 'Вы',
   },
   officer: {
     en: 'Officer',
@@ -212,6 +244,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Oficial',
     fr: 'Agent',
     zh: '警官',
+    ru: 'Сотрудник',
   },
   autoAnalyzeHint: {
     en: 'The AI coach analyzes automatically a few seconds after you pause — or tap below anytime.',
@@ -219,6 +252,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'El asistente de IA analiza automáticamente unos segundos después de que hagas una pausa, o toca abajo en cualquier momento.',
     fr: "Le coach IA analyse automatiquement quelques secondes après votre pause — ou appuyez ci-dessous à tout moment.",
     zh: 'AI 教练会在你停顿几秒后自动分析——你也可以随时点击下方按钮。',
+    ru: 'ИИ-помощник автоматически анализирует ситуацию через несколько секунд после паузы — либо нажмите кнопку ниже в любой момент.',
   },
   analyzing: {
     en: 'Analyzing…',
@@ -226,6 +260,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Analizando…',
     fr: 'Analyse en cours…',
     zh: '分析中…',
+    ru: 'Идёт анализ…',
   },
   analyzeNow: {
     en: 'Analyze now',
@@ -233,6 +268,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Analizar ahora',
     fr: 'Analyser maintenant',
     zh: '立即分析',
+    ru: 'Анализировать сейчас',
   },
   aiCoach: {
     en: 'AI Coach',
@@ -240,6 +276,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Asistente IA',
     fr: 'Coach IA',
     zh: 'AI 教练',
+    ru: 'ИИ-помощник',
   },
   sayThis: {
     en: 'Say this',
@@ -247,6 +284,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Di esto',
     fr: 'Dites ceci',
     zh: '这样说',
+    ru: 'Скажите это',
   },
   whatToSay: {
     en: 'What to say',
@@ -254,6 +292,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Qué decir',
     fr: 'Quoi dire',
     zh: '该说什么',
+    ru: 'Что сказать',
   },
   copied: {
     en: 'Copied!',
@@ -261,6 +300,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: '¡Copiado!',
     fr: 'Copié !',
     zh: '已复制！',
+    ru: 'Скопировано!',
   },
   copy: {
     en: 'Copy',
@@ -268,6 +308,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Copiar',
     fr: 'Copier',
     zh: '复制',
+    ru: 'Копировать',
   },
   hideEscalation: {
     en: 'Hide escalation steps',
@@ -275,6 +316,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Ocultar pasos de escalamiento',
     fr: "Masquer les étapes d'escalade",
     zh: '隐藏升级步骤',
+    ru: 'Скрыть дальнейшие шаги',
   },
   ifNotWorking: {
     en: "If this doesn't work →",
@@ -282,6 +324,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Si esto no funciona →',
     fr: 'Si cela ne fonctionne pas →',
     zh: '如果这样不管用 →',
+    ru: 'Если это не помогает →',
   },
   doNot: {
     en: 'Do not:',
@@ -289,6 +332,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'No hagas esto:',
     fr: 'Ne faites pas ceci :',
     zh: '不要：',
+    ru: 'Не делайте:',
   },
   glossaryTitle: {
     en: 'Legal terms explained',
@@ -296,6 +340,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Términos legales explicados',
     fr: 'Termes juridiques expliqués',
     zh: '法律术语解释',
+    ru: 'Объяснение юридических терминов',
   },
   errSttStartFailed: {
     en: 'Could not start live transcription',
@@ -303,6 +348,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'No se pudo iniciar la transcripción en vivo.',
     fr: 'Impossible de démarrer la transcription en direct.',
     zh: '无法启动实时转录',
+    ru: 'Не удалось запустить расшифровку в реальном времени',
   },
   errSttConnFailed: {
     en: 'Could not open live transcription connection.',
@@ -310,6 +356,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'No se pudo abrir la conexión de transcripción en vivo.',
     fr: "Impossible d'établir la connexion de transcription en direct.",
     zh: '无法建立实时转录连接。',
+    ru: 'Не удалось установить соединение для расшифровки в реальном времени.',
   },
   errSttConnError: {
     en: 'Live transcription connection had an error.',
@@ -317,6 +364,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'La conexión de transcripción en vivo tuvo un error.',
     fr: 'La connexion de transcription en direct a rencontré une erreur.',
     zh: '实时转录连接出现错误。',
+    ru: 'Ошибка соединения при расшифровке в реальном времени.',
   },
   errCoachingFailed: {
     en: 'Coaching failed',
@@ -324,12 +372,14 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Ocurrió un problema al analizar.',
     fr: "Une erreur s'est produite lors de l'analyse.",
     zh: '分析失败',
+    ru: 'Не удалось выполнить анализ',
   },
   autoLangDetect: {
     en: 'Automatically listens for English and {lang} mixed together — no need to choose.',
     hi: 'अपने आप अंग्रेज़ी और {lang} को मिलाकर पहचानता है — चुनने की ज़रूरत नहीं।',
     es: 'Detecta automáticamente inglés y {lang} mezclados — no hace falta elegir.',
     fr: "Détecte automatiquement l'anglais et le {lang} mélangés — pas besoin de choisir.",
+    ru: 'Автоматически распознаёт английский и {lang} вместе — выбирать не нужно.',
   },
   singleLangOnly: {
     en: 'Currently listening in {lang} only — mixing with English isn\'t supported for this language yet.',
@@ -337,6 +387,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Actualmente solo escucha en {lang} — mezclar con inglés aún no es compatible para este idioma.',
     fr: "Actuellement, l'écoute se fait uniquement en {lang} — le mélange avec l'anglais n'est pas encore pris en charge pour cette langue.",
     zh: '目前仅识别{lang}——暂不支持与英语混合识别。',
+    ru: 'Сейчас распознаётся только {lang} — смешивание с английским для этого языка пока не поддерживается.',
   },
   errCameraPermission: {
     en: 'Camera and microphone permission is required to record.',
@@ -344,6 +395,7 @@ export const translations: Record<string, TranslationEntry> = {
     es: 'Se requiere permiso de cámara y micrófono para grabar.',
     fr: "L'autorisation de la caméra et du microphone est requise pour enregistrer.",
     zh: '录制需要摄像头和麦克风权限。',
+    ru: 'Для записи необходим доступ к камере и микрофону.',
   },
 };
 

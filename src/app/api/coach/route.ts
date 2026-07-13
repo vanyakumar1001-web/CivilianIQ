@@ -3,12 +3,14 @@ import { getAnthropicClient } from '@/lib/anthropic';
 import { entries as indiaEntries } from '@/data/srt-india';
 import { entries as usaEntries } from '@/data/srt-usa';
 import { entries as chinaEntries } from '@/data/srt-china';
+import { entries as russiaEntries } from '@/data/srt-russia';
 import { LANGUAGE_NAMES, type CountryCode, type LanguageCode } from '@/lib/i18n';
 import type { CoachResponse, RightsEntry } from '@/types';
 
 function entriesForCountry(country: CountryCode): RightsEntry[] {
   if (country === 'US') return usaEntries;
   if (country === 'CN') return chinaEntries;
+  if (country === 'RU') return russiaEntries;
   return indiaEntries;
 }
 
@@ -25,7 +27,8 @@ export async function POST(request: NextRequest) {
 
   const entries = entriesForCountry(country);
   const languageName = language ? LANGUAGE_NAMES[language] : 'Hindi';
-  const countryName = country === 'US' ? 'the United States' : country === 'CN' ? 'China' : 'India';
+  const countryName =
+    country === 'US' ? 'the United States' : country === 'CN' ? 'China' : country === 'RU' ? 'Russia' : 'India';
 
   const catalog = entries.map((e) => ({
     id: e.id,

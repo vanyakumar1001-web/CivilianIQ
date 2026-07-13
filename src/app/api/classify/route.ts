@@ -3,6 +3,7 @@ import { getAnthropicClient } from '@/lib/anthropic';
 import { entries as indiaEntries } from '@/data/srt-india';
 import { entries as usaEntries } from '@/data/srt-usa';
 import { entries as chinaEntries } from '@/data/srt-china';
+import { entries as russiaEntries } from '@/data/srt-russia';
 import { LANGUAGE_NAMES, type CountryCode, type LanguageCode } from '@/lib/i18n';
 import type { ClassifyResponse, MatchedRightsEntry, Translation, GlossaryTerm, RightsEntry } from '@/types';
 
@@ -20,6 +21,7 @@ interface ClassifyModelOutput {
 function entriesForCountry(country: CountryCode): RightsEntry[] {
   if (country === 'US') return usaEntries;
   if (country === 'CN') return chinaEntries;
+  if (country === 'RU') return russiaEntries;
   return indiaEntries;
 }
 
