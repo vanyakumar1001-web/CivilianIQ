@@ -17,6 +17,16 @@ module.exports = {
       fontFamily: {
         serif: ['var(--font-serif)', 'Georgia', 'Cambria', 'serif'],
         devanagari: ['var(--font-devanagari)', 'sans-serif'],
+        // System CJK fonts instead of a downloaded web font — Noto Sans SC is huge
+        // (thousands of glyphs) and made the dev server hang on first compile.
+        // Every major OS already ships a solid Chinese font.
+        chinese: [
+          '"PingFang SC"',
+          '"Microsoft YaHei"',
+          '"Noto Sans CJK SC"',
+          '"Heiti SC"',
+          'sans-serif',
+        ],
       },
       boxShadow: {
         soft: '0 4px 24px rgba(0, 0, 0, 0.35)',

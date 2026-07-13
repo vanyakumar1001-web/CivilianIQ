@@ -2,11 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAnthropicClient } from '@/lib/anthropic';
 import { entries as indiaEntries } from '@/data/srt-india';
 import { entries as usaEntries } from '@/data/srt-usa';
+import { entries as chinaEntries } from '@/data/srt-china';
 import { LANGUAGE_NAMES, type CountryCode, type LanguageCode } from '@/lib/i18n';
 import type { CoachResponse, RightsEntry } from '@/types';
 
 function entriesForCountry(country: CountryCode): RightsEntry[] {
-  return country === 'US' ? usaEntries : indiaEntries;
+  if (country === 'US') return usaEntries;
+  if (country === 'CN') return chinaEntries;
+  return indiaEntries;
 }
 
 export async function POST(request: NextRequest) {
@@ -22,7 +25,7 @@ export async function POST(request: NextRequest) {
 
   const entries = entriesForCountry(country);
   const languageName = language ? LANGUAGE_NAMES[language] : 'Hindi';
-  const countryName = country === 'US' ? 'the United States' : 'India';
+  const countryName = country === 'US' ? 'the United States' : country === 'CN' ? 'China' : 'India';
 
   const catalog = entries.map((e) => ({
     id: e.id,
