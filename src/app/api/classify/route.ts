@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAnthropicClient } from '@/lib/anthropic';
-import { entries } from '@/data/srt-india';
-import type { ClassifyResponse, MatchedRightsEntry, HiTranslation, GlossaryTerm } from '@/types';
+import { entries as indiaEntries } from '@/data/srt-india';
+import { entries as usaEntries } from '@/data/srt-usa';
+import { LANGUAGE_NAMES, type CountryCode, type LanguageCode } from '@/lib/i18n';
+import type { ClassifyResponse, MatchedRightsEntry, Translation, GlossaryTerm, RightsEntry } from '@/types';
 
 interface ClassifyMatch {
   id: string;
   reason: string;
-  hi: HiTranslation;
+  translated: Translation;
 }
 
 interface ClassifyModelOutput {
@@ -14,12 +16,23 @@ interface ClassifyModelOutput {
   glossary: GlossaryTerm[];
 }
 
+function entriesForCountry(country: CountryCode): RightsEntry[] {
+  return country === 'US' ? usaEntries : indiaEntries;
+}
+
 export async function POST(request: NextRequest) {
-  const { query }: { query?: string } = await request.json();
+  const {
+    query,
+    country = 'IN',
+    language,
+  }: { query?: string; country?: CountryCode; language?: LanguageCode } = await request.json();
 
   if (!query || typeof query !== 'string' || !query.trim()) {
     return NextResponse.json({ error: 'query is required' }, { status: 400 });
   }
+
+  const entries = entriesForCountry(country);
+  const languageName = language ? LANGUAGE_NAMES[language] : 'Hindi';
 
   const catalog = entries.map((e) => ({
     id: e.id,
@@ -41,13 +54,13 @@ export async function POST(request: NextRequest) {
       model: 'claude-sonnet-5',
       max_tokens: 8192,
       system:
-        "You match a citizen's description of a police encounter in India (written in English, Hindi, or Hinglish) to the most relevant entries in a legal rights taxonomy. Only return entries that are genuinely relevant to what the citizen described, ranked best match first. If nothing is relevant, return an empty list. For every match, also translate the entry's situation, right_plain, script, escalation steps, and what_not_to_do into calm, natural, everyday Hindi (Devanagari script) — simple and reassuring, suitable for someone in a stressful moment. Translate faithfully; do not add or omit information. Finally, scan the text of the matched entries for legal or procedural jargon a layperson wouldn't know (e.g. bail, FIR, remand, anticipatory bail, warrant, writ, detention, NHRC, arrest memo) and explain each one in one or two very simple sentences, in both English and Hindi, as if explaining to a worried friend with no legal background. Skip this if no matches are found.",
+        `You match a citizen's description of a police encounter (written in English or a mix of English and ${languageName}) to the most relevant entries in a legal rights taxonomy. Only return entries that are genuinely relevant to what the citizen described, ranked best match first. If nothing is relevant, return an empty list. For every match, also translate the entry's situation, right_plain, script, escalation steps, and what_not_to_do into calm, natural, everyday ${languageName} — simple and reassuring, suitable for someone in a stressful moment. Translate faithfully; do not add or omit information. Finally, scan the text of the matched entries for legal or procedural jargon a layperson wouldn't know and explain each one in one or two very simple sentences, in both English and ${languageName}, as if explaining to a worried friend with no legal background. Skip this if no matches are found.`,
       messages: [
         {
           role: 'user',
           content: `Situation described by the citizen: "${query}"\n\nTaxonomy entries:\n${JSON.stringify(
             catalog
-          )}\n\nPick up to 3 of the most relevant entry ids, provide Hindi translations for each, and build a plain-language glossary of any legal jargon in the matched text.`,
+          )}\n\nPick up to 3 of the most relevant entry ids, provide ${languageName} translations for each, and build a plain-language glossary of any legal jargon in the matched text.`,
         },
       ],
       output_config: {
@@ -66,7 +79,7 @@ export async function POST(request: NextRequest) {
                       type: 'string',
                       description: 'One short sentence on why this entry matches.',
                     },
-                    hi: {
+                    translated: {
                       type: 'object',
                       properties: {
                         situation_description: { type: 'string' },
@@ -85,7 +98,7 @@ export async function POST(request: NextRequest) {
                       additionalProperties: false,
                     },
                   },
-                  required: ['id', 'reason', 'hi'],
+                  required: ['id', 'reason', 'translated'],
                   additionalProperties: false,
                 },
               },
@@ -97,9 +110,9 @@ export async function POST(request: NextRequest) {
                   properties: {
                     term: { type: 'string' },
                     explanation_en: { type: 'string' },
-                    explanation_hi: { type: 'string' },
+                    explanation_translated: { type: 'string' },
                   },
-                  required: ['term', 'explanation_en', 'explanation_hi'],
+                  required: ['term', 'explanation_en', 'explanation_translated'],
                   additionalProperties: false,
                 },
               },
@@ -132,7 +145,7 @@ export async function POST(request: NextRequest) {
   const results: MatchedRightsEntry[] = parsed.matches
     .map((m): MatchedRightsEntry | null => {
       const entry = entries.find((e) => e.id === m.id);
-      return entry ? { ...entry, match_reason: m.reason, hi: m.hi } : null;
+      return entry ? { ...entry, match_reason: m.reason, translated: m.translated } : null;
     })
     .filter((e): e is MatchedRightsEntry => e !== null);
 

@@ -2,6 +2,7 @@ import './globals.css';
 import { Lora, Noto_Sans_Devanagari } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { LanguageProvider } from '@/lib/LanguageContext';
 
 const lora = Lora({
   subsets: ['latin'],
@@ -30,7 +31,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${lora.variable} ${notoDevanagari.variable}`}>
-      <body className="font-serif">{children}</body>
+      <body className="font-serif">
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

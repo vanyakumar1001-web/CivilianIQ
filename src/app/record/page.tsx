@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { BiBlock, BiInline } from '@/components/Bilingual';
 import Glossary from '@/components/Glossary';
+import CountryGate from '@/components/CountryGate';
+import { useLanguage, useT } from '@/lib/LanguageContext';
 import type { CoachResponse, DiarizedTurn, SpeakerRole, ApiError } from '@/types';
 
 const AUTO_ANALYZE_DEBOUNCE_MS = 3000;
@@ -31,7 +33,7 @@ interface GeoLocation {
 
 interface BilingualMessage {
   en: string;
-  hi: string;
+  translated: string;
 }
 
 function buildDiarizedText(turns: DiarizedTurn[]): string {
@@ -43,6 +45,9 @@ function errorMessage(err: unknown, fallback: string): string {
 }
 
 export default function RecordPage() {
+  const { ready, preference, countryOption, languageOption, clearPreference } = useLanguage();
+  const t = useT();
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -59,7 +64,6 @@ export default function RecordPage() {
   const [turns, setTurns] = useState<DiarizedTurn[]>([]);
   const [interim, setInterim] = useState('');
   const [sttSupported, setSttSupported] = useState(true);
-  const [speechLang, setSpeechLang] = useState('en-IN');
   const [sttError, setSttError] = useState<BilingualMessage | null>(null);
   const [location, setLocation] = useState<GeoLocation | null>(null);
   const [startedAt, setStartedAt] = useState<Date | null>(null);
@@ -92,33 +96,31 @@ export default function RecordPage() {
     };
   }, []);
 
-  async function connectDeepgram(lang: string): Promise<WebSocket | null> {
+  async function connectDeepgram(): Promise<WebSocket | null> {
     setSttError(null);
     let tempKey: string;
     try {
       const res = await fetch('/api/deepgram-token', { method: 'POST' });
       const data: { key: string } & Partial<ApiError> = await res.json();
-      if (!res.ok || !data.key) throw new Error(data.error || 'Could not start live transcription');
+      if (!res.ok || !data.key) throw new Error(data.error || t('errSttStartFailed').en);
       tempKey = data.key;
     } catch (err) {
       setSttError({
-        en: errorMessage(err, 'Could not start live transcription'),
-        hi: 'लाइव ट्रांसक्रिप्शन शुरू नहीं हो सका।',
+        en: errorMessage(err, t('errSttStartFailed').en),
+        translated: t('errSttStartFailed').translated,
       });
       return null;
     }
 
-    const dgLang = lang.startsWith('hi') ? 'hi' : 'en';
-    const url = `wss://api.deepgram.com/v1/listen?model=nova-2&language=${dgLang}&diarize=true&smart_format=true&punctuate=true&interim_results=true&endpointing=300`;
+    // model=nova-3 + language=multi enables automatic code-switching, so English and
+    // the chosen secondary language can be spoken interchangeably without picking one.
+    const url = `wss://api.deepgram.com/v1/listen?model=nova-3&language=multi&diarize=true&smart_format=true&punctuate=true&interim_results=true&endpointing=300`;
 
     let ws: WebSocket;
     try {
       ws = new WebSocket(url, ['token', tempKey]);
     } catch {
-      setSttError({
-        en: 'Could not open live transcription connection.',
-        hi: 'लाइव ट्रांसक्रिप्शन कनेक्शन नहीं खुला।',
-      });
+      setSttError(t('errSttConnFailed'));
       return null;
     }
 
@@ -161,16 +163,14 @@ export default function RecordPage() {
     };
 
     ws.onerror = () => {
-      setSttError({
-        en: 'Live transcription connection had an error.',
-        hi: 'लाइव ट्रांसक्रिप्शन कनेक्शन में समस्या आई।',
-      });
+      setSttError(t('errSttConnError'));
     };
 
     return ws;
   }
 
   async function runAnalysis() {
+    if (!preference) return;
     const diarizedText = buildDiarizedText(turnsRef.current);
     if (!diarizedText.trim() || coachingRef.current || diarizedText === lastAnalyzedRef.current) return;
     coachingRef.current = true;
@@ -180,14 +180,18 @@ export default function RecordPage() {
       const res = await fetch('/api/coach', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transcript: diarizedText }),
+        body: JSON.stringify({
+          transcript: diarizedText,
+          country: preference.country,
+          language: preference.language,
+        }),
       });
       const data: CoachResponse & Partial<ApiError> = await res.json();
-      if (!res.ok) throw new Error((data as ApiError).error || 'Coaching failed');
+      if (!res.ok) throw new Error((data as ApiError).error || t('errCoachingFailed').en);
       setCoach(data);
       lastAnalyzedRef.current = diarizedText;
     } catch (err) {
-      setError({ en: errorMessage(err, 'Coaching failed'), hi: 'विश्लेषण करने में समस्या आई।' });
+      setError({ en: errorMessage(err, t('errCoachingFailed').en), translated: t('errCoachingFailed').translated });
     } finally {
       coachingRef.current = false;
       setCoaching(false);
@@ -208,6 +212,7 @@ export default function RecordPage() {
     return () => {
       if (autoAnalyzeTimerRef.current) clearTimeout(autoAnalyzeTimerRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transcript, isRecording]);
 
   async function startRecording() {
@@ -254,7 +259,7 @@ export default function RecordPage() {
       lastAnalyzedRef.current = '';
 
       if (sttSupported) {
-        const ws = await connectDeepgram(speechLang);
+        const ws = await connectDeepgram();
         if (ws) {
           wsRef.current = ws;
           const audioStream = new MediaStream(stream.getAudioTracks());
@@ -281,10 +286,7 @@ export default function RecordPage() {
       setNow(new Date());
       setIsRecording(true);
     } catch {
-      setError({
-        en: 'Camera and microphone permission is required to record.',
-        hi: 'रिकॉर्ड करने के लिए कैमरा और माइक्रोफोन की अनुमति ज़रूरी है।',
-      });
+      setError(t('errCameraPermission'));
     }
   }
 
@@ -310,15 +312,13 @@ export default function RecordPage() {
     runAnalysis();
   }
 
-  function switchSpeechLang(lang: string) {
-    if (lang === speechLang || isRecording) return;
-    setSpeechLang(lang);
-  }
-
   function roleForSpeaker(speakerNum: number): SpeakerRole | null {
     const entry = coach?.speaker_labels?.find((s) => s.speaker === String(speakerNum));
     return entry?.role || null;
   }
+
+  if (!ready) return null;
+  if (!preference || !countryOption || !languageOption) return <CountryGate />;
 
   const elapsed =
     isRecording && startedAt && now ? Math.floor((now.getTime() - startedAt.getTime()) / 1000) : 0;
@@ -326,18 +326,22 @@ export default function RecordPage() {
   return (
     <main className="min-h-screen text-ink px-4 py-8">
       <div className="max-w-2xl mx-auto">
-        <a href="/" className="text-accent text-sm hover:underline">
-          <BiInline en="← Back to search" hi="← खोज पर वापस" />
-        </a>
+        <div className="flex items-center justify-between mb-2">
+          <a href="/" className="text-accent text-sm hover:underline">
+            <BiInline id="backToSearch" />
+          </a>
+          <button
+            onClick={clearPreference}
+            className="text-xs rounded-full border border-peach/40 bg-brown-light/60 px-3 py-1 text-ink-light hover:border-blush-deep transition-colors"
+            title="Change country / language"
+          >
+            {countryOption.flag} {languageOption.nativeLabel}
+          </button>
+        </div>
         <h1 className="text-2xl font-bold mt-2 mb-1 tracking-wide bg-gradient-to-r from-butter via-peach to-blush bg-clip-text text-transparent">
           Live Recording + AI Coach
         </h1>
-        <BiBlock
-          as="p"
-          className="text-ink-light text-sm mb-6"
-          en="Records video/audio evidence with GPS + timestamp, transcribes speech live with real speaker separation, and automatically analyzes it for coaching."
-          hi="GPS और समय के साथ वीडियो/ऑडियो सबूत रिकॉर्ड करता है, बोलने वालों को अलग पहचानते हुए लाइव लिखता है, और अपने आप विश्लेषण करके सलाह देता है।"
-        />
+        <BiBlock as="p" className="text-ink-light text-sm mb-6" id="recordDescription" />
 
         <div className="relative rounded-2xl overflow-hidden bg-brown border border-peach/40 shadow-soft mb-4 aspect-video transition-shadow duration-300 hover:shadow-lift">
           <video ref={videoRef} autoPlay muted playsInline className="w-full h-full object-cover" />
@@ -359,8 +363,8 @@ export default function RecordPage() {
         {error && (
           <p className="text-rose-300 text-sm mb-4">
             {error.en}
-            <span lang="hi" className="block font-devanagari font-medium text-[1.05em] leading-relaxed mt-1">
-              {error.hi}
+            <span lang={languageOption.code} className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1`}>
+              {error.translated}
             </span>
           </p>
         )}
@@ -371,14 +375,14 @@ export default function RecordPage() {
               onClick={startRecording}
               className="rounded-full bg-accent text-brown font-semibold px-5 py-3 text-sm shadow-soft hover:bg-accent-deep hover:shadow-lift transition-all active:scale-95"
             >
-              <BiInline en="Start Recording" hi="रिकॉर्डिंग शुरू करें" />
+              <BiInline id="startRecording" />
             </button>
           ) : (
             <button
               onClick={stopRecording}
               className="rounded-full bg-blush-deep text-brown font-semibold px-5 py-3 text-sm shadow-soft hover:opacity-90 hover:shadow-lift transition-all active:scale-95"
             >
-              <BiInline en="Stop Recording" hi="रिकॉर्डिंग बंद करें" />
+              <BiInline id="stopRecording" />
             </button>
           )}
           {recordingUrl && (
@@ -387,67 +391,42 @@ export default function RecordPage() {
               download={`civilianiq-recording-${Date.now()}.webm`}
               className="rounded-full border border-peach/40 bg-brown-light/60 px-5 py-3 text-sm text-ink hover:border-blush-deep transition-all active:scale-95 animate-fade-in-up"
             >
-              <BiInline en="Download recording" hi="रिकॉर्डिंग डाउनलोड करें" />
+              <BiInline id="downloadRecording" />
             </a>
           )}
         </div>
 
         {sttSupported && (
-          <div className="flex items-center gap-2 mb-6">
-            <span className="text-xs text-ink-faint">
-              <BiInline en="Speaking in" hi="भाषा" />:
+          <p className="text-xs text-ink-faint mb-6">
+            {t('autoLangDetect').en.replace('{lang}', languageOption.label)}
+            <span
+              lang={languageOption.code}
+              className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink-light mt-1`}
+            >
+              {t('autoLangDetect').translated.replace('{lang}', languageOption.nativeLabel)}
             </span>
-            <button
-              onClick={() => switchSpeechLang('en-IN')}
-              disabled={isRecording}
-              className={`text-xs rounded-full border px-3 py-1 transition-all active:scale-95 disabled:opacity-50 ${
-                speechLang === 'en-IN'
-                  ? 'bg-accent text-brown border-accent'
-                  : 'border-peach/40 bg-brown-light/60 text-ink-light hover:border-blush-deep'
-              }`}
-            >
-              English
-            </button>
-            <button
-              onClick={() => switchSpeechLang('hi-IN')}
-              disabled={isRecording}
-              className={`text-xs rounded-full border px-3 py-1 font-devanagari font-medium transition-all active:scale-95 disabled:opacity-50 ${
-                speechLang === 'hi-IN'
-                  ? 'bg-accent text-brown border-accent'
-                  : 'border-peach/40 bg-brown-light/60 text-ink-light hover:border-blush-deep'
-              }`}
-            >
-              हिंदी
-            </button>
-          </div>
+          </p>
         )}
 
-        {!sttSupported && (
-          <BiBlock
-            as="p"
-            className="text-xs text-ink-light mb-4"
-            en="Live speech transcription isn't supported in this browser. Try Chrome or Edge."
-            hi="इस ब्राउज़र में लाइव भाषण पहचान उपलब्ध नहीं है। कृपया Chrome या Edge आज़माएं।"
-          />
-        )}
+        {!sttSupported && <BiBlock as="p" className="text-xs text-ink-light mb-4" id="sttNotSupported" />}
 
         {sttError && (
           <p className="text-xs text-rose-300 mb-4">
             {sttError.en}
-            <span lang="hi" className="block font-devanagari font-medium text-[1.05em] leading-relaxed mt-1">
-              {sttError.hi}
+            <span lang={languageOption.code} className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1`}>
+              {sttError.translated}
             </span>
           </p>
         )}
 
         <div className="rounded-2xl border border-peach/40 bg-brown-light/70 backdrop-blur-sm shadow-soft p-4 mb-4 transition-shadow duration-300 hover:shadow-lift">
           <h2 className="text-xs uppercase tracking-wide text-ink-faint mb-2">
-            <BiInline en="Live transcript" hi="लाइव ट्रांसक्रिप्ट" />
+            <BiInline id="liveTranscript" />
           </h2>
           <p className="text-sm text-ink whitespace-pre-wrap min-h-[3rem]">
             {transcript || (
               <span className="text-ink-faint">
-                <BiInline en="Listening…" hi="सुन रहे हैं…" />
+                <BiInline id="listening" />
               </span>
             )}
             {interim && <span className="text-ink-light"> {interim}</span>}
@@ -457,13 +436,10 @@ export default function RecordPage() {
         {turns.length > 0 && (
           <div className="rounded-2xl border border-peach/40 bg-brown-light/70 backdrop-blur-sm shadow-soft p-4 mb-4 transition-shadow duration-300 hover:shadow-lift">
             <h2 className="text-xs uppercase tracking-wide text-ink-faint mb-1">
-              <BiInline en="Who said what" hi="किसने क्या कहा" />
+              <BiInline id="whoSaidWhat" />
             </h2>
             <p className="text-[11px] text-ink-faint mb-3 italic">
-              Speakers are separated live by voice; roles (Officer/You) are the AI's best guess from what's said.
-              <span lang="hi" className="block font-devanagari font-medium text-[1.05em] leading-relaxed not-italic mt-1">
-                वक्ता आवाज़ के आधार पर अलग किए गए हैं; भूमिका (अधिकारी/आप) AI का अनुमान है।
-              </span>
+              <BiBlock id="turnsDisclaimer" as="span" translatedClassName="not-italic text-[1em]" />
             </p>
             <div className="space-y-2">
               {turns.map((turn, i) => {
@@ -478,9 +454,9 @@ export default function RecordPage() {
                     >
                       <span className="block text-[10px] uppercase tracking-wide text-brown/60 mb-0.5">
                         {role === 'citizen' ? (
-                          <BiInline en="You" hi="आप" />
+                          <BiInline id="you" />
                         ) : role === 'officer' ? (
-                          <BiInline en="Officer" hi="अधिकारी" />
+                          <BiInline id="officer" />
                         ) : (
                           `Speaker ${turn.speaker + 1}`
                         )}
@@ -494,48 +470,45 @@ export default function RecordPage() {
           </div>
         )}
 
-        <BiBlock
-          as="p"
-          className="text-xs text-ink-faint mb-2 text-center"
-          en="The AI coach analyzes automatically a few seconds after you pause — or tap below anytime."
-          hi="कुछ बोलने के बाद AI कोच अपने आप विश्लेषण करता है — या कभी भी नीचे टैप करें।"
-        />
+        <BiBlock as="p" className="text-xs text-ink-faint mb-2 text-center" id="autoAnalyzeHint" />
 
         <button
           onClick={runAnalysis}
           disabled={coaching || !transcript.trim()}
           className="w-full rounded-full bg-accent text-brown font-semibold px-5 py-3 text-sm shadow-soft hover:bg-accent-deep hover:shadow-lift transition-all active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100 mb-4"
         >
-          {coaching ? (
-            <BiInline en="Analyzing…" hi="विश्लेषण हो रहा है…" />
-          ) : (
-            <BiInline en="Analyze now" hi="अभी विश्लेषण करें" />
-          )}
+          {coaching ? <BiInline id="analyzing" /> : <BiInline id="analyzeNow" />}
         </button>
 
         {coach && (
           <div className="rounded-2xl border border-peach/40 bg-brown-light/70 backdrop-blur-sm shadow-soft p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lift animate-fade-in-up">
             <h2 className="text-xs uppercase tracking-wide text-ink-faint mb-2">
-              <BiInline en="AI Coach" hi="AI कोच" />
+              <BiInline id="aiCoach" />
             </h2>
             <p className="text-sm text-ink mb-3">
               {coach.advice_en}
-              {coach.advice_hi && (
-                <span lang="hi" className="block font-devanagari font-medium text-[1.05em] leading-relaxed text-ink mt-1">
-                  {coach.advice_hi}
+              {coach.advice_translated && (
+                <span
+                  lang={languageOption.code}
+                  className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink mt-1`}
+                >
+                  {coach.advice_translated}
                 </span>
               )}
             </p>
             {coach.triggered && coach.say_this_en && (
               <div className="rounded-xl bg-butter/90 border border-peach/40 p-4">
                 <span className="text-xs uppercase tracking-wide text-brown/60">
-                  <BiInline en="Say this" hi="यह कहें" />
+                  <BiInline id="sayThis" />
                 </span>
                 <p className="text-sm text-brown mt-1">
                   {coach.say_this_en}
-                  {coach.say_this_hi && (
-                    <span lang="hi" className="block font-devanagari font-medium text-[1.05em] leading-relaxed text-brown mt-1">
-                      {coach.say_this_hi}
+                  {coach.say_this_translated && (
+                    <span
+                      lang={languageOption.code}
+                      className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-brown mt-1`}
+                    >
+                      {coach.say_this_translated}
                     </span>
                   )}
                 </p>

@@ -1,14 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAnthropicClient } from '@/lib/anthropic';
-import { entries } from '@/data/srt-india';
-import type { CoachResponse } from '@/types';
+import { entries as indiaEntries } from '@/data/srt-india';
+import { entries as usaEntries } from '@/data/srt-usa';
+import { LANGUAGE_NAMES, type CountryCode, type LanguageCode } from '@/lib/i18n';
+import type { CoachResponse, RightsEntry } from '@/types';
+
+function entriesForCountry(country: CountryCode): RightsEntry[] {
+  return country === 'US' ? usaEntries : indiaEntries;
+}
 
 export async function POST(request: NextRequest) {
-  const { transcript }: { transcript?: string } = await request.json();
+  const {
+    transcript,
+    country = 'IN',
+    language,
+  }: { transcript?: string; country?: CountryCode; language?: LanguageCode } = await request.json();
 
   if (!transcript || typeof transcript !== 'string' || !transcript.trim()) {
     return NextResponse.json({ error: 'transcript is required' }, { status: 400 });
   }
+
+  const entries = entriesForCountry(country);
+  const languageName = language ? LANGUAGE_NAMES[language] : 'Hindi';
+  const countryName = country === 'US' ? 'the United States' : 'India';
 
   const catalog = entries.map((e) => ({
     id: e.id,
@@ -25,7 +39,7 @@ export async function POST(request: NextRequest) {
       model: 'claude-sonnet-5',
       max_tokens: 4096,
       system:
-        'You are a real-time legal rights coach listening to a live, speaker-diarized transcript of a citizen-police encounter in India. The transcript is pre-segmented by voice into turns labeled "Speaker 0", "Speaker 1", etc. — these speaker boundaries come from real audio diarization and are already correct; do not re-split or second-guess them. Based on what has been said so far, tell the citizen what right may apply right now and give them a short, calm sentence to say. Ground every suggestion strictly in the provided taxonomy — never invent a right, statute, or script. If nothing in the transcript clearly triggers a specific right yet, say triggered=false and give brief general guidance (stay calm, be polite, do not resist). Provide every piece of advice and every script in both English and calm, natural, everyday Hindi (Devanagari script). Also scan the transcript and your own advice for legal or procedural jargon a layperson wouldn\'t know (e.g. bail, FIR, remand, anticipatory bail, warrant, writ, detention, NHRC, arrest memo) and explain each one in one or two very simple sentences, in both English and Hindi, as if explaining to a worried friend with no legal background. Return an empty glossary if no jargon appears. Finally, for every distinct "Speaker N" label that appears in the transcript, decide whether that speaker is the "officer" or the "citizen" based on what they say — the officer typically demands documents, gives orders, or asks accusatory questions; the citizen typically responds, asks about their rights, or asserts something. Return one entry per distinct speaker number seen.',
+        `You are a real-time legal rights coach listening to a live, speaker-diarized transcript of a citizen-police encounter in ${countryName}. The transcript is pre-segmented by voice into turns labeled "Speaker 0", "Speaker 1", etc. — these speaker boundaries come from real audio diarization and are already correct; do not re-split or second-guess them. Based on what has been said so far, tell the citizen what right may apply right now and give them a short, calm sentence to say. Ground every suggestion strictly in the provided taxonomy — never invent a right, statute, or script. If nothing in the transcript clearly triggers a specific right yet, say triggered=false and give brief general guidance (stay calm, be polite, do not resist). Provide every piece of advice and every script in both English and calm, natural, everyday ${languageName}. Also scan the transcript and your own advice for legal or procedural jargon a layperson wouldn't know and explain each one in one or two very simple sentences, in both English and ${languageName}, as if explaining to a worried friend with no legal background. Return an empty glossary if no jargon appears. Finally, for every distinct "Speaker N" label that appears in the transcript, decide whether that speaker is the "officer" or the "citizen" based on what they say — the officer typically demands documents, gives orders, or asks accusatory questions; the citizen typically responds, asks about their rights, or asserts something. Return one entry per distinct speaker number seen.`,
       messages: [
         {
           role: 'user',
@@ -43,9 +57,9 @@ export async function POST(request: NextRequest) {
               triggered: { type: 'boolean' },
               matched_id: { anyOf: [{ type: 'string' }, { type: 'null' }] },
               advice_en: { type: 'string' },
-              advice_hi: { type: 'string' },
+              advice_translated: { type: 'string' },
               say_this_en: { anyOf: [{ type: 'string' }, { type: 'null' }] },
-              say_this_hi: { anyOf: [{ type: 'string' }, { type: 'null' }] },
+              say_this_translated: { anyOf: [{ type: 'string' }, { type: 'null' }] },
               glossary: {
                 type: 'array',
                 description: 'Plain-language explanations of legal jargon found in the transcript or advice.',
@@ -54,9 +68,9 @@ export async function POST(request: NextRequest) {
                   properties: {
                     term: { type: 'string' },
                     explanation_en: { type: 'string' },
-                    explanation_hi: { type: 'string' },
+                    explanation_translated: { type: 'string' },
                   },
-                  required: ['term', 'explanation_en', 'explanation_hi'],
+                  required: ['term', 'explanation_en', 'explanation_translated'],
                   additionalProperties: false,
                 },
               },
@@ -78,9 +92,9 @@ export async function POST(request: NextRequest) {
               'triggered',
               'matched_id',
               'advice_en',
-              'advice_hi',
+              'advice_translated',
               'say_this_en',
-              'say_this_hi',
+              'say_this_translated',
               'glossary',
               'speaker_labels',
             ],

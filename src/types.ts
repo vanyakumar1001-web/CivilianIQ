@@ -16,7 +16,7 @@ export interface RightsEntry {
   severity: Severity;
 }
 
-export interface HiTranslation {
+export interface Translation {
   situation_description: string;
   right_plain: string;
   script: string;
@@ -26,13 +26,13 @@ export interface HiTranslation {
 
 export interface MatchedRightsEntry extends RightsEntry {
   match_reason?: string;
-  hi?: HiTranslation;
+  translated?: Translation;
 }
 
 export interface GlossaryTerm {
   term: string;
   explanation_en: string;
-  explanation_hi: string;
+  explanation_translated: string;
 }
 
 export interface ClassifyResponse {
@@ -51,9 +51,9 @@ export interface CoachResponse {
   triggered: boolean;
   matched_id: string | null;
   advice_en: string;
-  advice_hi: string;
+  advice_translated: string;
   say_this_en: string | null;
-  say_this_hi: string | null;
+  say_this_translated: string | null;
   glossary: GlossaryTerm[];
   speaker_labels: SpeakerLabel[];
 }

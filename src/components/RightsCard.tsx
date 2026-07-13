@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { BiInline } from '@/components/Bilingual';
+import { useLanguage } from '@/lib/LanguageContext';
+import type { LanguageOption } from '@/lib/i18n';
 import type { MatchedRightsEntry, Severity } from '@/types';
 
 const SEVERITY_COLORS: Record<Severity, string> = {
@@ -11,17 +13,21 @@ const SEVERITY_COLORS: Record<Severity, string> = {
   low: 'bg-emerald-100 text-emerald-700 border-emerald-300',
 };
 
-interface HiLineProps {
+interface TranslatedLineProps {
   text?: string;
   className?: string;
+  languageOption: LanguageOption | null;
 }
 
-// Devanagari needs to run larger and at full contrast to read as easily as the
-// Latin text beside it — never shrink or dim the Hindi line relative to English.
-function HiLine({ text, className = 'text-ink' }: HiLineProps) {
+// Non-Latin scripts (like Devanagari) need to run larger and at full contrast to
+// read as easily as the Latin text beside them — never shrink or dim this line.
+function TranslatedLine({ text, className = 'text-ink', languageOption }: TranslatedLineProps) {
   if (!text) return null;
   return (
-    <span lang="hi" className={`block font-devanagari font-medium text-[1.05em] leading-relaxed mt-1 ${className}`}>
+    <span
+      lang={languageOption?.code}
+      className={`block ${languageOption?.fontClass || ''} font-medium text-[1.05em] leading-relaxed mt-1 ${className}`}
+    >
       {text}
     </span>
   );
@@ -34,6 +40,7 @@ interface RightsCardProps {
 export default function RightsCard({ entry }: RightsCardProps) {
   const [copied, setCopied] = useState(false);
   const [showEscalation, setShowEscalation] = useState(false);
+  const { languageOption } = useLanguage();
 
   async function copyScript() {
     try {
@@ -50,7 +57,7 @@ export default function RightsCard({ entry }: RightsCardProps) {
       <div className="flex items-center justify-between gap-2 mb-2">
         <h2 className="font-semibold text-lg text-ink">
           {entry.situation_description}
-          <HiLine text={entry.hi?.situation_description} />
+          <TranslatedLine text={entry.translated?.situation_description} languageOption={languageOption} />
         </h2>
         <span
           className={`shrink-0 text-xs rounded-full border px-2 py-0.5 ${
@@ -67,25 +74,25 @@ export default function RightsCard({ entry }: RightsCardProps) {
 
       <p className="text-sm text-ink mb-3">
         {entry.right_plain}
-        <HiLine text={entry.hi?.right_plain} />
+        <TranslatedLine text={entry.translated?.right_plain} languageOption={languageOption} />
       </p>
       <p className="text-xs text-ink-faint mb-4">{entry.right_formal}</p>
 
       <div className="rounded-xl bg-butter/90 border border-peach/40 p-4 mb-4">
         <div className="flex items-center justify-between mb-1">
           <span className="text-xs uppercase tracking-wide text-brown/60">
-            <BiInline en="What to say" hi="क्या कहें" />
+            <BiInline id="whatToSay" />
           </span>
           <button
             onClick={copyScript}
             className="text-xs text-brown font-semibold hover:underline active:scale-95 transition-transform"
           >
-            {copied ? <BiInline en="Copied!" hi="कॉपी हो गया!" /> : <BiInline en="Copy" hi="कॉपी करें" />}
+            {copied ? <BiInline id="copied" /> : <BiInline id="copy" />}
           </button>
         </div>
         <p className="text-sm text-brown">
           {entry.script}
-          <HiLine text={entry.hi?.script} className="text-brown" />
+          <TranslatedLine text={entry.translated?.script} className="text-brown" languageOption={languageOption} />
         </p>
       </div>
 
@@ -93,11 +100,7 @@ export default function RightsCard({ entry }: RightsCardProps) {
         onClick={() => setShowEscalation((s) => !s)}
         className="text-xs text-accent hover:underline mb-2"
       >
-        {showEscalation ? (
-          <BiInline en="Hide escalation steps" hi="आगे के कदम छुपाएं" />
-        ) : (
-          <BiInline en="If this doesn't work →" hi="अगर यह काम न करे →" />
-        )}
+        {showEscalation ? <BiInline id="hideEscalation" /> : <BiInline id="ifNotWorking" />}
       </button>
 
       {showEscalation && (
@@ -105,7 +108,7 @@ export default function RightsCard({ entry }: RightsCardProps) {
           {entry.escalation.map((step, i) => (
             <li key={i}>
               {step}
-              <HiLine text={entry.hi?.escalation?.[i]} className="text-ink ml-5" />
+              <TranslatedLine text={entry.translated?.escalation?.[i]} className="text-ink ml-5" languageOption={languageOption} />
             </li>
           ))}
         </ol>
@@ -113,10 +116,10 @@ export default function RightsCard({ entry }: RightsCardProps) {
 
       <p className="text-xs text-rose-300/90 mb-2">
         <span className="font-semibold">
-          <BiInline en="Do not:" hi="यह न करें:" />
+          <BiInline id="doNot" />
         </span>{' '}
         {entry.what_not_to_do}
-        <HiLine text={entry.hi?.what_not_to_do} />
+        <TranslatedLine text={entry.translated?.what_not_to_do} languageOption={languageOption} />
       </p>
 
       <p className="text-[11px] text-ink-faint">{entry.source_statutes.join(' · ')}</p>

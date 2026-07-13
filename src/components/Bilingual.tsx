@@ -1,44 +1,52 @@
-import type { ElementType, ReactNode } from 'react';
+'use client';
+
+import type { ElementType } from 'react';
+import { useLanguage, useT } from '@/lib/LanguageContext';
 
 interface BiBlockProps {
-  en: ReactNode;
-  hi: ReactNode;
+  id: string;
   className?: string;
-  hiClassName?: string;
+  translatedClassName?: string;
   as?: ElementType;
 }
 
-// Stacked bilingual text — English on top, Hindi beneath. Devanagari needs to run
-// *larger* and at full contrast to read as easily as Latin text at the same visual
-// weight, so the Hindi line intentionally isn't shrunk or dimmed relative to English.
-export function BiBlock({ en, hi, className = '', hiClassName = '', as: As = 'div' }: BiBlockProps) {
+// Stacked bilingual text — English on top, the chosen language beneath. Devanagari
+// (and other non-Latin scripts) need to run *larger* and at full contrast to read
+// as easily as Latin text at the same visual weight, so the second line is never
+// shrunk or dimmed relative to English.
+export function BiBlock({ id, className = '', translatedClassName = '', as: As = 'div' }: BiBlockProps) {
+  const t = useT();
+  const { languageOption } = useLanguage();
+  const { en, translated } = t(id);
   return (
     <As className={className}>
       {en}
       <span
-        lang="hi"
-        className={`block font-devanagari font-medium text-[1.05em] leading-relaxed text-ink mt-1 ${hiClassName}`}
+        lang={languageOption?.code}
+        className={`block ${languageOption?.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink mt-1 ${translatedClassName}`}
       >
-        {hi}
+        {translated}
       </span>
     </As>
   );
 }
 
 interface BiInlineProps {
-  en: ReactNode;
-  hi: ReactNode;
+  id: string;
   className?: string;
 }
 
-// Inline bilingual text — English · Hindi on the same line, for buttons and short labels.
-export function BiInline({ en, hi, className = '' }: BiInlineProps) {
+// Inline bilingual text — English · [language] on the same line, for buttons and short labels.
+export function BiInline({ id, className = '' }: BiInlineProps) {
+  const t = useT();
+  const { languageOption } = useLanguage();
+  const { en, translated } = t(id);
   return (
     <span className={className}>
       {en}
-      <span lang="hi" className="font-devanagari font-medium text-[1em]">
+      <span lang={languageOption?.code} className={`${languageOption?.fontClass || ''} font-medium text-[1em]`}>
         {' '}
-        · {hi}
+        · {translated}
       </span>
     </span>
   );
