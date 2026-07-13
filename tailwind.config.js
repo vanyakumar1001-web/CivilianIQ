@@ -17,8 +17,6 @@ module.exports = {
       fontFamily: {
         serif: ['var(--font-serif)', 'Georgia', 'Cambria', 'serif'],
         devanagari: ['var(--font-devanagari)', 'sans-serif'],
-        chinese: ['var(--font-chinese)', 'sans-serif'],
-        arabic: ['var(--font-arabic)', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 4px 24px rgba(0, 0, 0, 0.35)',
