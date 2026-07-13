@@ -357,6 +357,14 @@ export const translations: Record<string, TranslationEntry> = {
     zh: '自动识别英语和{lang}混合使用的内容——无需选择。',
     ar: 'يستمع تلقائيًا للغة الإنجليزية و{lang} معًا — لا حاجة للاختيار.',
   },
+  singleLangOnly: {
+    en: 'Currently listening in {lang} only — mixing with English isn\'t supported for this language yet.',
+    hi: 'फ़िलहाल केवल {lang} में सुना जा रहा है — इस भाषा के लिए अंग्रेज़ी के साथ मिलाना अभी समर्थित नहीं है।',
+    es: 'Actualmente solo escucha en {lang} — mezclar con inglés aún no es compatible para este idioma.',
+    fr: "Actuellement, l'écoute se fait uniquement en {lang} — le mélange avec l'anglais n'est pas encore pris en charge pour cette langue.",
+    zh: '目前仅识别{lang}——暂不支持与英语混合识别。',
+    ar: 'يستمع حاليًا إلى {lang} فقط — لا يدعم الخلط مع الإنجليزية لهذه اللغة بعد.',
+  },
   errCameraPermission: {
     en: 'Camera and microphone permission is required to record.',
     hi: 'रिकॉर्ड करने के लिए कैमरा और माइक्रोफोन की अनुमति ज़रूरी है।',

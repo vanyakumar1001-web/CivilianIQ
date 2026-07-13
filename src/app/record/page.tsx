@@ -9,6 +9,10 @@ import type { CoachResponse, DiarizedTurn, SpeakerRole, ApiError } from '@/types
 
 const AUTO_ANALYZE_DEBOUNCE_MS = 3000;
 
+// Deepgram nova-3's language=multi (code-switching) mode only supports this fixed
+// set of languages. Anything outside it must use its own single-language code instead.
+const DEEPGRAM_MULTI_SUPPORTED = new Set(['en', 'es', 'fr', 'de', 'hi', 'ru', 'pt', 'ja', 'it', 'nl']);
+
 interface DeepgramWord {
   word: string;
   punctuated_word?: string;
@@ -112,10 +116,13 @@ export default function RecordPage() {
       return null;
     }
 
-    // model=nova-3 + language=multi enables automatic code-switching, so English and
-    // the chosen secondary language can be spoken interchangeably without picking one.
-    // If English itself is the chosen language, there's nothing to switch between.
-    const dgLanguage = languageOption?.code === 'en' ? 'en' : 'multi';
+    // model=nova-3 + language=multi enables automatic code-switching between English
+    // and the chosen language, but Deepgram's multi mode only covers a fixed set of
+    // languages (en, es, fr, de, hi, ru, pt, ja, it, nl) — Mandarin and Arabic aren't
+    // in it, so requesting multi for those silently breaks transcription. Fall back to
+    // the specific language code for anything multi doesn't support.
+    const code = languageOption?.code;
+    const dgLanguage = !code || code === 'en' ? 'en' : DEEPGRAM_MULTI_SUPPORTED.has(code) ? 'multi' : code;
     const url = `wss://api.deepgram.com/v1/listen?model=nova-3&language=${dgLanguage}&diarize=true&smart_format=true&punctuate=true&interim_results=true&endpointing=300`;
 
     let ws: WebSocket;
@@ -406,13 +413,19 @@ export default function RecordPage() {
 
         {sttSupported && languageOption.code !== 'en' && (
           <p className="text-xs text-ink-faint mb-6">
-            {t('autoLangDetect').en.replace('{lang}', languageOption.label)}
+            {t(DEEPGRAM_MULTI_SUPPORTED.has(languageOption.code) ? 'autoLangDetect' : 'singleLangOnly').en.replace(
+              '{lang}',
+              languageOption.label
+            )}
             <span
               lang={languageOption.code}
               dir={languageOption.dir}
               className={`block ${languageOption.fontClass || ''} font-medium text-[1.05em] leading-relaxed text-ink-light mt-1`}
             >
-              {t('autoLangDetect').translated.replace('{lang}', languageOption.nativeLabel)}
+              {t(DEEPGRAM_MULTI_SUPPORTED.has(languageOption.code) ? 'autoLangDetect' : 'singleLangOnly').translated.replace(
+                '{lang}',
+                languageOption.nativeLabel
+              )}
             </span>
           </p>
         )}
