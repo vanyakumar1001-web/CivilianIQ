@@ -1,0 +1,10 @@
+project_id = "civilianiq"
+
+[functions.classify]
+verify_jwt = false
+
+[functions.coach]
+verify_jwt = false
+
+[functions.deepgram-token]
+verify_jwt = false

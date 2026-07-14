@@ -1,0 +1,549 @@
+export const entries = [
+  {
+    "id": "UK_STOP_ACCOUNT_001_stop_and_account",
+    "country": "GB",
+    "category": "STOP_AND_ACCOUNT",
+    "sub_issue": "STOP_AND_ACCOUNT",
+    "trigger_keywords": [
+      "what are you doing here",
+      "stop and account",
+      "police asked me questions",
+      "why are you here officer"
+    ],
+    "situation_description": "An officer stops you just to ask what you are doing, where you are going, or what you are carrying, without searching you",
+    "right_plain": "A 'stop and account' is not a search and there is no legal obligation to answer, though officers may become more suspicious if you refuse. You do not have to give your name or address unless you are being reported for a specific offence (such as a driving matter) or arrested. You can ask if you are free to leave.",
+    "right_formal": "PACE Code A, paragraph 4 (stop and account is distinct from a stop and search)",
+    "script": "Am I being detained, or am I free to go? I don't have to answer questions, but I'm happy to confirm I've done nothing wrong.",
+    "escalation": [
+      "Ask politely whether you are being detained or are free to leave",
+      "You can decline to answer without it being an offence on its own",
+      "If the officer moves to a search, ask on what legal grounds",
+      "Note the officer's name, number, and time/location if the interaction feels off",
+      "You can request a receipt confirming the stop took place"
+    ],
+    "what_not_to_do": "Do not walk away mid-conversation if the officer has not confirmed you are free to leave — clarify first, then leave calmly if permitted.",
+    "source_statutes": [
+      "PACE Code A"
+    ],
+    "severity": "low"
+  },
+  {
+    "id": "UK_STOP_SEARCH_001_reasonable_suspicion",
+    "country": "GB",
+    "category": "STOP_SEARCH",
+    "sub_issue": "REASONABLE_SUSPICION_SEARCH",
+    "trigger_keywords": [
+      "stop and search",
+      "police want to search me",
+      "reasonable suspicion",
+      "search my bag"
+    ],
+    "situation_description": "Police want to search you or your bag under standard stop and search powers",
+    "right_plain": "For most stop and searches, the officer needs reasonable grounds to suspect you are carrying something illegal, such as drugs, a weapon, or stolen property. Before searching, they must generally tell you their name and station, the legal power used, the grounds for the search, and what they are looking for (often remembered as GOWISELY), and you are entitled to a search record or receipt.",
+    "right_formal": "PACE 1984 s.1; PACE Code A",
+    "script": "Can you tell me your name, your station, the power you're using, and the grounds for suspicion? I don't consent, but I won't obstruct you.",
+    "escalation": [
+      "Ask for the officer's details and the specific legal grounds",
+      "Stay calm and do not physically resist even if you disagree with the search",
+      "Ask for a copy of the search record, or how to get one online",
+      "Note everything as soon as possible afterward",
+      "A search without reasonable grounds can be challenged via a complaint to the police force or the IOPC"
+    ],
+    "what_not_to_do": "Do not physically obstruct or resist the search, which is itself an offence — object verbally and raise concerns through a complaint afterward.",
+    "source_statutes": [
+      "PACE 1984 s.1",
+      "PACE Code A"
+    ],
+    "severity": "medium"
+  },
+  {
+    "id": "UK_STOP_SEARCH_002_s60_no_suspicion",
+    "country": "GB",
+    "category": "STOP_SEARCH",
+    "sub_issue": "SECTION_60_AUTHORIZATION",
+    "trigger_keywords": [
+      "section 60",
+      "s60 search",
+      "searched without suspicion",
+      "authorised search area"
+    ],
+    "situation_description": "Police search you in an area where a senior officer has authorized searches without individual suspicion, often after reports of violence or weapons",
+    "right_plain": "Under a Section 60 authorisation, officers can search people and vehicles in a specific area and time window without needing individual suspicion about you personally. The authorisation itself must exist and be in force for the area and time — you can ask about it, though officers are not always required to prove it on the spot.",
+    "right_formal": "Criminal Justice and Public Order Act 1994 s.60",
+    "script": "Is this search under a Section 60 authorisation? Can you confirm the area and time it covers?",
+    "escalation": [
+      "Ask whether the search is under Section 60 and what area/time it covers",
+      "Comply with the search itself even while asking questions",
+      "Request a search record or receipt reference number",
+      "Section 60 use, especially its disproportionate impact on some communities, can be raised in a formal complaint",
+      "Consult a solicitor or legal aid organization if you believe the authorisation was misused"
+    ],
+    "what_not_to_do": "Do not assume a Section 60 search requires the same individual suspicion as an ordinary stop and search — the legal basis is different, so focus your questions on the authorisation itself.",
+    "source_statutes": [
+      "Criminal Justice and Public Order Act 1994 s.60"
+    ],
+    "severity": "medium"
+  },
+  {
+    "id": "UK_TRAFFIC_001_documents",
+    "country": "GB",
+    "category": "TRAFFIC_STOP",
+    "sub_issue": "REQUIRED_DOCUMENTS",
+    "trigger_keywords": [
+      "police pulled me over",
+      "traffic stop",
+      "produce my licence",
+      "driving licence check"
+    ],
+    "situation_description": "Police stop your vehicle and ask for your driving licence, insurance, or MOT",
+    "right_plain": "Police can require you to produce your driving licence, insurance, and MOT certificate, either at the roadside or within 7 days at a police station (a HORT/1 production notice). You are entitled to know the reason for the stop.",
+    "right_formal": "Road Traffic Act 1988 s.163, s.164",
+    "script": "Good afternoon officer, may I ask the reason for the stop? Here are my documents, or I can bring them to a station within 7 days.",
+    "escalation": [
+      "Ask the specific reason for the stop if it is not clear",
+      "Provide documents if you have them, or accept the production notice",
+      "Note the officer's number and the time/location if you plan to dispute anything",
+      "A traffic fixed penalty can generally be challenged in court within the stated deadline",
+      "Keep a copy of any notice issued"
+    ],
+    "what_not_to_do": "Do not drive away before being told you may leave, and do not argue extensively at the roadside about a disputed penalty — contest it through the proper process afterward.",
+    "source_statutes": [
+      "Road Traffic Act 1988 s.163",
+      "s.164"
+    ],
+    "severity": "low"
+  },
+  {
+    "id": "UK_TRAFFIC_002_vehicle_search",
+    "country": "GB",
+    "category": "TRAFFIC_STOP",
+    "sub_issue": "VEHICLE_SEARCH",
+    "trigger_keywords": [
+      "search my car",
+      "vehicle search",
+      "police searching my vehicle",
+      "search the boot"
+    ],
+    "situation_description": "Police want to search your vehicle during a traffic stop",
+    "right_plain": "As with personal stop and search, officers generally need reasonable grounds to search a vehicle without your consent, for example suspicion of drugs, weapons, or stolen property. They must tell you the grounds and legal power used, and you are entitled to a search record.",
+    "right_formal": "PACE 1984 s.1; Misuse of Drugs Act 1971 s.23; PACE Code A",
+    "script": "What are the grounds for searching my vehicle, and under which power? I don't consent, but I won't obstruct the search.",
+    "escalation": [
+      "Ask for the specific grounds and legal power being used",
+      "Do not physically obstruct the search even if you disagree",
+      "Ask for a copy of the search record",
+      "Note officer details and the time/location",
+      "Consult a solicitor afterward if you believe the search was unlawful"
+    ],
+    "what_not_to_do": "Do not attempt to drive off or physically block officers from searching the vehicle — object verbally and challenge it afterward.",
+    "source_statutes": [
+      "PACE 1984 s.1",
+      "Misuse of Drugs Act 1971 s.23"
+    ],
+    "severity": "medium"
+  },
+  {
+    "id": "UK_ARREST_001_grounds_and_caution",
+    "country": "GB",
+    "category": "ARREST",
+    "sub_issue": "GROUNDS_AND_CAUTION",
+    "trigger_keywords": [
+      "you're under arrest",
+      "being arrested",
+      "police arrested me",
+      "read my rights"
+    ],
+    "situation_description": "Police tell you that you are under arrest",
+    "right_plain": "An arrest requires reasonable grounds to suspect involvement in an offence, plus a necessity reason (such as to prevent harm, obtain evidence, or establish identity). You must be told you are under arrest, the grounds for it, and be given the police caution: you do not have to say anything, but it may harm your defence if you fail to mention something later relied on in court, and anything you do say can be given in evidence.",
+    "right_formal": "PACE 1984 s.24, s.28; PACE Code G",
+    "script": "I understand I'm under arrest. I'm exercising my right to silence and I want a solicitor before I answer any questions.",
+    "escalation": [
+      "Listen for the specific grounds given for the arrest",
+      "Say clearly that you want a solicitor",
+      "You can stay silent, but understand the caution's adverse-inference wording",
+      "Ask what happens next and how long you may be held",
+      "Contact a solicitor or the duty solicitor as soon as possible"
+    ],
+    "what_not_to_do": "Do not physically resist an arrest even if you believe it is unlawful — comply and challenge its legality afterward through a solicitor or complaint.",
+    "source_statutes": [
+      "PACE 1984 s.24",
+      "s.28"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "UK_DETENTION_001_custody_limits",
+    "country": "GB",
+    "category": "DETENTION",
+    "sub_issue": "CUSTODY_TIME_LIMITS",
+    "trigger_keywords": [
+      "how long can they hold me",
+      "custody time limit",
+      "held at the police station",
+      "24 hours detention"
+    ],
+    "situation_description": "You are held in police custody after arrest and want to know how long this can last",
+    "right_plain": "Detention without charge is generally limited to 24 hours from arrival at the station, extendable to 36 hours by a superintendent for indictable offences, and up to 96 hours with magistrates' court authorisation (longer limits apply for terrorism-related arrests under separate legislation). A custody officer must review your detention periodically and you must be told the grounds for continued detention.",
+    "right_formal": "PACE 1984 s.41-44",
+    "script": "Can you confirm what time my detention clock started, and what the current time limit is?",
+    "escalation": [
+      "Ask the custody sergeant to confirm the detention clock start time",
+      "Ask for the grounds at each periodic review",
+      "Request your solicitor be present or contacted",
+      "If limits are exceeded without proper authorisation, this can be challenged and raised as a complaint",
+      "Keep track of times yourself if possible"
+    ],
+    "what_not_to_do": "Do not assume detention is open-ended — the time limits are a real legal constraint, so track them and ask questions if they appear to be exceeded.",
+    "source_statutes": [
+      "PACE 1984 s.41-44"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "UK_SILENCE_001_right_to_silence",
+    "country": "GB",
+    "category": "INTERROGATION",
+    "sub_issue": "RIGHT_TO_SILENCE",
+    "trigger_keywords": [
+      "do i have to answer",
+      "right to silence",
+      "police questioning me",
+      "no comment interview"
+    ],
+    "situation_description": "Police are questioning you and you are deciding whether to answer",
+    "right_plain": "You have the right to remain silent and are not obliged to answer questions. However, under the standard caution, a court or jury may later draw an adverse inference if you stay silent about something you could reasonably have been expected to mention, and later rely on in your defence. Many solicitors advise a 'no comment' interview specifically to avoid this risk until you have had proper legal advice.",
+    "right_formal": "Criminal Justice and Public Order Act 1994 s.34-37; PACE Code C",
+    "script": "I'm exercising my right to silence on legal advice, and I want to speak with a solicitor before answering any questions.",
+    "escalation": [
+      "Ask for a solicitor before deciding how to answer",
+      "Understand that silence has caution-related consequences, unlike some other countries",
+      "Follow your solicitor's specific advice for your situation",
+      "Do not sign any written statement without reading it fully",
+      "Request a break to consult privately with your solicitor if needed"
+    ],
+    "what_not_to_do": "Do not assume silence is completely consequence-free, and do not answer 'just a little' without legal advice — get a solicitor's guidance first.",
+    "source_statutes": [
+      "Criminal Justice and Public Order Act 1994 s.34-37"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "UK_LEGAL_AID_001_right_to_solicitor",
+    "country": "GB",
+    "category": "LEGAL_AID",
+    "sub_issue": "RIGHT_TO_SOLICITOR",
+    "trigger_keywords": [
+      "i want a lawyer",
+      "duty solicitor",
+      "legal advice at the police station",
+      "free legal aid"
+    ],
+    "situation_description": "You are in police custody and want legal advice",
+    "right_plain": "You have the right to free and independent legal advice at the police station at any time, regardless of income, through the duty solicitor scheme, or you can request your own solicitor. This right can only be delayed in narrow, senior-authorised circumstances (such as risk to evidence in serious cases), and even then not indefinitely.",
+    "right_formal": "PACE 1984 s.58; PACE Code C",
+    "script": "I want to speak to a solicitor before any questioning. I'd like the duty solicitor if I don't have my own.",
+    "escalation": [
+      "State clearly and early that you want a solicitor",
+      "This is free regardless of your income — ask for the duty solicitor if needed",
+      "Ask the custody officer for an update if there is a delay",
+      "You can speak to the solicitor privately, including by phone",
+      "Do not proceed with an interview until you've had the chance to get advice"
+    ],
+    "what_not_to_do": "Do not waive your right to a solicitor to 'get it over with' — this is a free right and legal advice meaningfully changes how an interview goes.",
+    "source_statutes": [
+      "PACE 1984 s.58",
+      "PACE Code C"
+    ],
+    "severity": "high"
+  },
+  {
+    "id": "UK_SEARCH_001_premises_warrant",
+    "country": "GB",
+    "category": "SEARCH",
+    "sub_issue": "HOME_SEARCH",
+    "trigger_keywords": [
+      "search warrant",
+      "police searching my house",
+      "search my home",
+      "warrant to search premises"
+    ],
+    "situation_description": "Police want to search your home",
+    "right_plain": "Police generally need a warrant issued by a magistrate to search premises, except for specific warrantless powers such as searching immediately after an arrest, entering to make an arrest, or preventing a breach of the peace. You can ask to see the warrant, and it should specify what is being searched for.",
+    "right_formal": "PACE 1984 s.8, s.17, s.18, s.32",
+    "script": "Can I see the warrant, please, and confirm what you're searching for?",
+    "escalation": [
+      "Ask to see the warrant before the search proceeds where one is required",
+      "Note the officers' names and numbers present",
+      "Ask for a list of anything seized",
+      "Contact a solicitor as soon as possible afterward",
+      "A search without proper legal basis can be challenged, including the admissibility of anything found"
+    ],
+    "what_not_to_do": "Do not physically obstruct a search even if you believe it is improper — object verbally, document details, and challenge it through a solicitor afterward.",
+    "source_statutes": [
+      "PACE 1984 s.8",
+      "s.17",
+      "s.18",
+      "s.32"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "UK_SEARCH_002_personal_search_custody",
+    "country": "GB",
+    "category": "SEARCH",
+    "sub_issue": "CUSTODY_SEARCH",
+    "trigger_keywords": [
+      "strip search",
+      "searched at the police station",
+      "custody search",
+      "personal search in custody"
+    ],
+    "situation_description": "You are searched at the police station after being brought into custody",
+    "right_plain": "A search at custody to record property and check for anything dangerous is standard, but a more intimate 'strip search' requires specific necessity grounds, senior authorisation, and must be conducted by an officer of the same sex, out of view of others, with careful documentation. It should not be done routinely.",
+    "right_formal": "PACE Code C, Annex A",
+    "script": "What is the specific reason and authorisation for this level of search?",
+    "escalation": [
+      "Ask for the grounds and level of authorisation for any strip search",
+      "Confirm the search is being conducted by an officer of the same sex, privately",
+      "Ask for it to be documented in the custody record",
+      "Raise concerns with the custody sergeant if the process seems improper",
+      "Consult a solicitor afterward about anything that felt disproportionate"
+    ],
+    "what_not_to_do": "Do not physically resist a lawfully conducted search — raise concerns about how it was carried out through a complaint afterward.",
+    "source_statutes": [
+      "PACE Code C, Annex A"
+    ],
+    "severity": "high"
+  },
+  {
+    "id": "UK_BAIL_001_police_bail",
+    "country": "GB",
+    "category": "BAIL",
+    "sub_issue": "POLICE_BAIL",
+    "trigger_keywords": [
+      "police bail",
+      "released under investigation",
+      "bail conditions",
+      "released pending charge"
+    ],
+    "situation_description": "You are released from custody either on police bail with conditions or released under investigation (RUI)",
+    "right_plain": "After being questioned, you may be released on bail with conditions (such as reporting to a station, or not contacting certain people) while the investigation continues, or released under investigation without a fixed date. Police bail conditions can generally be challenged or varied by a solicitor or, in some cases, a magistrates' court.",
+    "right_formal": "PACE 1984 s.30A-47; Bail Act 1976",
+    "script": "Can you confirm my bail conditions in writing and the date I need to return, if any?",
+    "escalation": [
+      "Ask for bail conditions and any return date in writing",
+      "Understand any conditions clearly before leaving, since breaching them is itself an offence",
+      "Ask a solicitor whether conditions can be challenged or varied",
+      "Keep any paperwork given at release",
+      "Follow up with the investigating officer if you have not heard back by the stated timeframe"
+    ],
+    "what_not_to_do": "Do not breach bail conditions even if you believe they are unreasonable — get a solicitor to challenge or vary them through the proper process.",
+    "source_statutes": [
+      "PACE 1984 s.30A-47",
+      "Bail Act 1976"
+    ],
+    "severity": "medium"
+  },
+  {
+    "id": "UK_MINOR_001_appropriate_adult",
+    "country": "GB",
+    "category": "MINOR_RIGHTS",
+    "sub_issue": "APPROPRIATE_ADULT",
+    "trigger_keywords": [
+      "my child was arrested",
+      "appropriate adult",
+      "juvenile in custody",
+      "minor detained by police"
+    ],
+    "situation_description": "A child or vulnerable person is being questioned or detained by police",
+    "right_plain": "Anyone under 18, or a vulnerable adult, is entitled to have an 'appropriate adult' present during questioning and key custody procedures — typically a parent, guardian, social worker, or trained volunteer. This person is there to support the young person, help them understand what's happening, and ensure the interview is fair, not to act as their legal representative.",
+    "right_formal": "PACE Code C, paragraphs 1.5, 3.15, 11.15-11.17",
+    "script": "I'm asking for an appropriate adult to be present before any questioning continues, along with a solicitor.",
+    "escalation": [
+      "Ask for an appropriate adult to be arranged if one is not already present",
+      "Also request a solicitor separately — the appropriate adult does not replace legal advice",
+      "Ask the appropriate adult to raise any concerns about how the process is being handled",
+      "Keep a record of times and who was present",
+      "Consult a solicitor afterward if you believe the young person's rights were not respected"
+    ],
+    "what_not_to_do": "Do not allow a formal interview to proceed without an appropriate adult present for a minor or vulnerable person, except in narrow urgent-risk circumstances.",
+    "source_statutes": [
+      "PACE Code C, paragraphs 1.5",
+      "3.15",
+      "11.15-11.17"
+    ],
+    "severity": "high"
+  },
+  {
+    "id": "UK_COMPLAINT_001_misconduct",
+    "country": "GB",
+    "category": "FILING_COMPLAINT",
+    "sub_issue": "POLICE_MISCONDUCT",
+    "trigger_keywords": [
+      "complain about police",
+      "file a complaint against an officer",
+      "police misconduct",
+      "IOPC"
+    ],
+    "situation_description": "You want to file a complaint about how police treated you",
+    "right_plain": "Complaints about police conduct can generally be made directly to the police force involved, or referred to the Independent Office for Police Conduct (IOPC) for more serious matters. Complaints can be submitted in writing, online, or in person, and there are set time limits, generally 12 months, though this can sometimes be extended.",
+    "right_formal": "Police (Complaints and Misconduct) Regulations 2020",
+    "script": "I would like to file a formal complaint about this officer's conduct. Can you direct me to the right process?",
+    "escalation": [
+      "File a complaint with the police force's professional standards department",
+      "Serious matters can be referred to or escalated to the IOPC",
+      "Keep detailed written records, dates, times, and any evidence",
+      "A solicitor or organization such as Citizens Advice can help draft the complaint",
+      "Ask for a reference number and expected response timeframe"
+    ],
+    "what_not_to_do": "Do not delay filing — gather evidence and submit the complaint while details are fresh, given the time limits involved.",
+    "source_statutes": [
+      "Police (Complaints and Misconduct) Regulations 2020"
+    ],
+    "severity": "medium"
+  },
+  {
+    "id": "UK_FORCE_001_excessive_force",
+    "country": "GB",
+    "category": "USE_OF_FORCE",
+    "sub_issue": "EXCESSIVE_FORCE",
+    "trigger_keywords": [
+      "police hurt me",
+      "excessive force",
+      "injured during arrest",
+      "police used too much force"
+    ],
+    "situation_description": "You experienced or witnessed what seemed like excessive force by police",
+    "right_plain": "Police may only use force that is 'reasonable in the circumstances' as they honestly believed them to be. Force beyond what was reasonable can be the basis for a complaint to the IOPC, and potentially a civil claim for assault or a criminal referral, depending on severity.",
+    "right_formal": "Criminal Law Act 1967 s.3; Human Rights Act 1998 (Article 3 ECHR)",
+    "script": "I need to document this use of force and get medical and legal help.",
+    "escalation": [
+      "Seek medical attention and document injuries immediately with photos and records",
+      "Get contact details of any witnesses",
+      "File a complaint with the police force or the IOPC",
+      "Consult a solicitor about a potential civil claim",
+      "Contact an organization such as Liberty or a local law centre for support"
+    ],
+    "what_not_to_do": "Do not delay medical treatment or documentation, and do not discard damaged clothing or other physical evidence.",
+    "source_statutes": [
+      "Criminal Law Act 1967 s.3",
+      "Human Rights Act 1998"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "UK_RECORD_001_filming_police",
+    "country": "GB",
+    "category": "RECORDING_POLICE",
+    "sub_issue": "RIGHT_TO_FILM",
+    "trigger_keywords": [
+      "can i film the police",
+      "recording police",
+      "filming an arrest",
+      "stop filming"
+    ],
+    "situation_description": "You want to record a police interaction, or an officer tells you to stop filming",
+    "right_plain": "There is generally no law against filming police in public while carrying out their duties, and officers should not routinely order you to stop or delete footage without a specific legal power (such as under counter-terrorism legislation in narrow circumstances). You should avoid physically obstructing the officers while filming.",
+    "right_formal": "No specific statutory prohibition; general public order and obstruction offences may be raised by police if filming interferes with their duties",
+    "script": "I'm filming from a distance and not obstructing you — I have the right to record this in public.",
+    "escalation": [
+      "Keep a reasonable distance and avoid physically obstructing officers",
+      "If asked to stop, ask calmly for the specific legal power being used",
+      "If your device is taken, ask for a receipt and note officer details",
+      "Do not delete footage on request without understanding your rights first",
+      "Consult a solicitor afterward if footage is confiscated or deleted without clear legal basis"
+    ],
+    "what_not_to_do": "Do not physically obstruct officers to keep filming, and do not escalate a confrontation over a request to move back.",
+    "source_statutes": [
+      "No specific statutory prohibition"
+    ],
+    "severity": "medium"
+  },
+  {
+    "id": "UK_PROTEST_001_assembly_rights",
+    "country": "GB",
+    "category": "PROTEST_RIGHTS",
+    "sub_issue": "PEACEFUL_ASSEMBLY",
+    "trigger_keywords": [
+      "protest rights",
+      "demonstration",
+      "police at a protest",
+      "march notification"
+    ],
+    "situation_description": "You are participating in or near a public protest, march, or demonstration",
+    "right_plain": "Freedom of assembly and expression are protected under the Human Rights Act 1998 (incorporating Articles 10 and 11 ECHR), but organisers of a public procession generally must give police advance written notice, and police can impose conditions on marches, assemblies, or even individual protesters — including on noise levels — under expanded powers. Failing to comply with a lawful condition can be an offence, so understanding any conditions announced matters.",
+    "right_formal": "Public Order Act 1986 s.11-14; Police, Crime, Sentencing and Courts Act 2022; Human Rights Act 1998",
+    "script": "I'm here peacefully. Can you tell me what conditions, if any, have been imposed on this protest?",
+    "escalation": [
+      "Listen for any conditions announced by police (location, time, noise limits) and try to comply while protesting",
+      "If told to disperse, weigh the risk of continued presence and understand the legal basis being cited",
+      "If detained, ask for the specific grounds and request a solicitor",
+      "Document the situation safely if possible",
+      "Contact a legal observer group or a solicitor experienced with protest-related cases"
+    ],
+    "what_not_to_do": "Do not assume the general right to protest overrides a specific, lawfully imposed condition — challenge an improper condition afterward through legal channels rather than at the scene.",
+    "source_statutes": [
+      "Public Order Act 1986 s.11-14",
+      "Police, Crime, Sentencing and Courts Act 2022"
+    ],
+    "severity": "high"
+  },
+  {
+    "id": "UK_RACIAL_001_racial_profiling",
+    "country": "GB",
+    "category": "RACIAL_PROFILING",
+    "sub_issue": "DISCRIMINATORY_TARGETING",
+    "trigger_keywords": [
+      "racial profiling",
+      "targeted because of my race",
+      "discriminatory stop and search",
+      "stopped for no reason"
+    ],
+    "situation_description": "You believe you were stopped, searched, or treated differently by police because of your race or ethnicity",
+    "right_plain": "It is unlawful for police to discriminate on the basis of race or ethnicity in how they exercise their powers, including stop and search. Official statistics have repeatedly shown Black people are stopped and searched at significantly higher rates than White people in England and Wales, and this disparity is a well-documented and long-running concern raised by oversight bodies and civil society groups.",
+    "right_formal": "Equality Act 2010; PACE Code A (grounds must not be based on stereotype or generalisation)",
+    "script": "I want your name and station, and I intend to note the grounds given for this stop, as I believe it may relate to my race.",
+    "escalation": [
+      "Note the officer's name, number, and the exact grounds given for the stop",
+      "Request a copy of the search record, which includes self-defined ethnicity data",
+      "File a complaint with the police force or the IOPC citing the Equality Act 2010",
+      "Contact an organization such as StopWatch or a discrimination-focused solicitor for support",
+      "Keep a written account of the encounter as soon as possible afterward"
+    ],
+    "what_not_to_do": "Do not assume nothing can be done — disproportionality data and the Equality Act provide a real basis for a complaint, even though individual cases can be hard to prove.",
+    "source_statutes": [
+      "Equality Act 2010",
+      "PACE Code A"
+    ],
+    "severity": "high"
+  },
+  {
+    "id": "UK_IMMIGRATION_001_status_check",
+    "country": "GB",
+    "category": "IMMIGRATION_CHECK",
+    "sub_issue": "IMMIGRATION_STATUS_CHECK",
+    "trigger_keywords": [
+      "immigration check",
+      "asked for my papers",
+      "visa status police",
+      "police asked if i'm illegal"
+    ],
+    "situation_description": "Police or immigration enforcement ask about your immigration or visa status",
+    "right_plain": "There is no general legal requirement to carry ID or immigration documents at all times in the UK, and police officers generally do not have the same immigration enforcement powers as Immigration Enforcement officers. You can ask whether you are speaking to police or Immigration Enforcement, and what specific power is being used to ask about your status.",
+    "right_formal": "Immigration Act 1971; UK Borders Act 2007",
+    "script": "Am I speaking with police or Immigration Enforcement, and what power are you using to ask about my status?",
+    "escalation": [
+      "Clarify whether the officer is police or Immigration Enforcement",
+      "Ask what specific power is being relied on",
+      "Contact your embassy or consulate if the situation becomes serious",
+      "Seek advice from an immigration solicitor or organization such as Migrant Help",
+      "Keep any documents and paperwork given during the encounter"
+    ],
+    "what_not_to_do": "Do not provide false information about your status, and do not assume every officer questioning you has the same powers as Immigration Enforcement — ask to clarify.",
+    "source_statutes": [
+      "Immigration Act 1971",
+      "UK Borders Act 2007"
+    ],
+    "severity": "medium"
+  }
+] as const;
