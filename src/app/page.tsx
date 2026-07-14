@@ -8,7 +8,7 @@ import { BiBlock, BiInline } from '@/components/Bilingual';
 import { useLanguage, useT } from '@/lib/LanguageContext';
 import type { ClassifyResponse, MatchedRightsEntry, GlossaryTerm, ApiError } from '@/types';
 
-const EXAMPLES: Record<'IN' | 'US' | 'CN' | 'RU' | 'BR', string[]> = {
+const EXAMPLES: Record<'IN' | 'US' | 'CN' | 'RU' | 'BR' | 'GB', string[]> = {
   IN: [
     'cop stopped me wants my phone',
     'police ne roka hai phone maang raha hai',
@@ -38,6 +38,12 @@ const EXAMPLES: Record<'IN' | 'US' | 'CN' | 'RU' | 'BR', string[]> = {
     'policia rodoviaria me multou',
     'fui detido sem explicação',
     'policia quer revistar minha casa',
+  ],
+  GB: [
+    'police stopped and searched me',
+    'officer pulled my car over',
+    "I've been arrested and want a solicitor",
+    'police want to search my house',
   ],
 };
 
@@ -87,7 +93,9 @@ export default function HomePage() {
           ? 'noResults_RU'
           : preference.country === 'BR'
             ? 'noResults_BR'
-            : 'noResults_IN';
+            : preference.country === 'GB'
+              ? 'noResults_GB'
+              : 'noResults_IN';
 
   return (
     <main className="min-h-screen text-ink px-4 py-10">

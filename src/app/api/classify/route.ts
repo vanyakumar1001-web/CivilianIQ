@@ -5,6 +5,7 @@ import { entries as usaEntries } from '@/data/srt-usa';
 import { entries as chinaEntries } from '@/data/srt-china';
 import { entries as russiaEntries } from '@/data/srt-russia';
 import { entries as brazilEntries } from '@/data/srt-brazil';
+import { entries as ukEntries } from '@/data/srt-uk';
 import { LANGUAGE_NAMES, type CountryCode, type LanguageCode } from '@/lib/i18n';
 import type { ClassifyResponse, MatchedRightsEntry, Translation, GlossaryTerm, RightsEntry } from '@/types';
 
@@ -24,6 +25,7 @@ function entriesForCountry(country: CountryCode): RightsEntry[] {
   if (country === 'CN') return chinaEntries;
   if (country === 'RU') return russiaEntries;
   if (country === 'BR') return brazilEntries;
+  if (country === 'GB') return ukEntries;
   return indiaEntries;
 }
 

@@ -1,5 +1,5 @@
 export type LanguageCode = 'en' | 'hi' | 'es' | 'fr' | 'zh' | 'ru' | 'pt';
-export type CountryCode = 'IN' | 'US' | 'CN' | 'RU' | 'BR';
+export type CountryCode = 'IN' | 'US' | 'CN' | 'RU' | 'BR' | 'GB';
 
 export interface LanguageOption {
   code: LanguageCode;
@@ -63,6 +63,12 @@ export const COUNTRIES: CountryOption[] = [
       { code: 'pt', label: 'Portuguese', nativeLabel: 'Português' },
       { code: 'es', label: 'Spanish', nativeLabel: 'Español' },
     ],
+  },
+  {
+    code: 'GB',
+    label: 'United Kingdom',
+    flag: '🇬🇧',
+    languages: [{ code: 'en', label: 'English', nativeLabel: 'English' }],
   },
 ];
 
@@ -154,6 +160,9 @@ export const translations: Record<string, TranslationEntry> = {
     en: 'No matching rights entry found. Try describing the situation differently, or contact the Defensoria Pública or a lawyer for help.',
     pt: 'Nenhum direito correspondente foi encontrado. Tente descrever a situação de outra forma, ou entre em contato com a Defensoria Pública ou um advogado.',
     es: 'No se encontró ningún derecho coincidente. Intenta describir la situación de otra manera, o comunícate con la Defensoria Pública o un abogado.',
+  },
+  noResults_GB: {
+    en: 'No matching rights entry found. Try describing the situation differently, or contact Citizens Advice or a solicitor for help.',
   },
   goToRecord: {
     en: 'Go to Live Recording + AI Coach →',
