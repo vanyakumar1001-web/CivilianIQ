@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { LanguageProvider } from '@/lib/LanguageContext';
 
 const lora = Lora({
-  subsets: ['latin', 'cyrillic'],
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-serif',
   display: 'swap',
