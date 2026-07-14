@@ -1,0 +1,874 @@
+{
+  "metadata": {
+    "dataset_name": "Situational Rights Taxonomy (SRT) v1.0 - India Police Encounters",
+    "version": "2.0.0",
+    "country": "India",
+    "focus": "Police misconduct and citizen-police encounters",
+    "total_entries": 25,
+    "encounter_types": [
+      "ARREST",
+      "BAIL_RIGHTS",
+      "CUSTODIAL_VIOLENCE",
+      "CYBER_COMPLAINT",
+      "DETENTION",
+      "DEVICE_SEARCH",
+      "FILING_COMPLAINT",
+      "FORCED_CONFESSION",
+      "HOME_SEARCH",
+      "MEDICAL_RIGHTS",
+      "MINORS_RIGHTS",
+      "POLICE_CORRUPTION",
+      "POLICE_SUMMONS",
+      "PROPERTY_SEIZURE",
+      "PROTEST_RIGHTS",
+      "RECORDING_POLICE",
+      "TRAFFIC_STOP",
+      "USE_OF_FORCE"
+    ],
+    "statutes_covered": [
+      "BNSS 2023",
+      "Motor Vehicles Act 1988",
+      "Constitution of India",
+      "IT Act 2000",
+      "Kerala Police Act 2011",
+      "NHRC Act 1993",
+      "Bharatiya Sakshya Adhiniyam 2023",
+      "Juvenile Justice Act 2015",
+      "Prevention of Corruption Act 1988"
+    ],
+    "landmark_cases": [
+      "D.K. Basu v State of WB (1997)",
+      "Lalita Kumari v Govt of UP (2014)",
+      "Prakash Singh v Union of India (2006)",
+      "K.S. Puttaswamy v Union of India (2017)",
+      "Arnesh Kumar v State of Bihar (2014)",
+      "Prem Shankar Shukla v Delhi Admin (1980)",
+      "Hussainara Khatoon v State of Bihar (1979)",
+      "Nilabati Behera v State of Orissa (1993)",
+      "PUCL v State of Maharashtra (2014)",
+      "Sunderbhai Ambalal Desai v State of Gujarat (2002)",
+      "Satender Kumar Antil v CBI (2022)",
+      "Ramlila Maidan v Home Secretary (2012)",
+      "Joginder Kumar v State of UP (1994)"
+    ],
+    "license": "CC BY-SA 4.0",
+    "disclaimer": "General legal information only. All entries require advocate review before use.",
+    "created_by": "Vanya Kumar",
+    "project": "The Law in Your Language - CivillianIQ"
+  },
+  "entries": [
+    {
+      "id": "IN_TRAFFIC_001_phone_unlock",
+      "country": "IN",
+      "category": "TRAFFIC_STOP",
+      "sub_issue": "DEVICE_SEARCH",
+      "trigger_keywords": [
+        "phone",
+        "unlock",
+        "digilocker",
+        "mobile",
+        "cop stopped",
+        "traffic stop"
+      ],
+      "situation_description": "Traffic officer asking you to unlock your phone or show DigiLocker",
+      "right_plain": "You are NOT required to unlock your phone or show DigiLocker. You must only produce your driving license, RC, and insurance certificate.",
+      "right_formal": "Motor Vehicles Act, 1988 - Section 129",
+      "script": "Officer, under Section 129 of the Motor Vehicles Act, I am only required to produce my license, RC, and insurance. I am happy to show these documents. I am not required to unlock my personal device.",
+      "escalation": [
+        "Ask for officer name and badge number",
+        "Record the interaction (Art.19(1)(a))",
+        "File complaint with SP Office",
+        "CM Helpline",
+        "High Court under Art.226"
+      ],
+      "what_not_to_do": "Do not physically resist. Do not refuse to show license/RC/insurance.",
+      "source_statutes": [
+        "Motor Vehicles Act 1988 S.129",
+        "Constitution Art.21 (Puttaswamy)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_TRAFFIC_002_challan_dispute",
+      "country": "IN",
+      "category": "TRAFFIC_STOP",
+      "sub_issue": "CHALLAN_DISPUTE",
+      "trigger_keywords": [
+        "challan",
+        "fine",
+        "e-challan",
+        "traffic fine",
+        "penalty"
+      ],
+      "situation_description": "Officer issuing a wrong challan or demanding cash payment",
+      "right_plain": "You have the right to receive a proper e-challan. Officers cannot demand cash on the spot. You can contest any challan within 60 days.",
+      "right_formal": "Motor Vehicles Act, 1988 - Sections 200, 206",
+      "script": "Officer, I request a proper e-challan with details of the violation. I will pay through the official portal. I am not required to pay cash on the spot.",
+      "escalation": [
+        "Demand written/e-challan",
+        "Note police vehicle number",
+        "Contest challan online at echallan.parivahan.gov.in",
+        "File RTI on challan records"
+      ],
+      "what_not_to_do": "Do not pay cash to the officer. Do not bribe.",
+      "source_statutes": [
+        "Motor Vehicles Act 1988 S.200",
+        "Motor Vehicles Act 1988 S.206"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_ARREST_001_warrantless",
+      "country": "IN",
+      "category": "ARREST",
+      "sub_issue": "WARRANTLESS_ARREST",
+      "trigger_keywords": [
+        "arrested",
+        "arrest",
+        "taken away",
+        "detained",
+        "handcuff",
+        "pakad liya"
+      ],
+      "situation_description": "Police attempting to arrest you without showing a warrant",
+      "right_plain": "Police can only arrest without warrant for cognizable offences. They MUST tell you WHY and inform your family. For offences under 7 years punishment, they should issue a notice first.",
+      "right_formal": "BNSS 2023 - Sections 35, 36, 47, 48; Constitution Art.22(1)",
+      "script": "Officer, please tell me the grounds for my arrest. Under Section 47 of the BNSS, I have the right to know why I am being arrested. Please inform my family member at [number] as required under Section 48.",
+      "escalation": [
+        "Ask for grounds of arrest (S.47 BNSS)",
+        "Demand family be informed (S.48 BNSS)",
+        "Ask to meet lawyer (S.38 BNSS)",
+        "Must see Magistrate within 24 hours (S.57)",
+        "File habeas corpus (Art.226)"
+      ],
+      "what_not_to_do": "Do not physically resist. Do not sign blank papers. Do not make statements without lawyer.",
+      "source_statutes": [
+        "BNSS 2023 S.35",
+        "BNSS 2023 S.36",
+        "BNSS 2023 S.47",
+        "BNSS 2023 S.48",
+        "Constitution Art.22"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_ARREST_002_rights_in_custody",
+      "country": "IN",
+      "category": "ARREST",
+      "sub_issue": "RIGHTS_DURING_ARREST",
+      "trigger_keywords": [
+        "in custody",
+        "police station",
+        "interrogation",
+        "confession",
+        "thana"
+      ],
+      "situation_description": "You are at the police station or in custody after arrest",
+      "right_plain": "Rights: (1) know why arrested, (2) meet lawyer during interrogation, (3) family informed, (4) Magistrate within 24 hours, (5) no torture, (6) free legal aid if needed.",
+      "right_formal": "BNSS 2023 - Sections 36, 38, 47, 48, 57; Constitution Art.21, 22; D.K. Basu guidelines",
+      "script": "I want to exercise my right under Section 38 of the BNSS to meet my lawyer. Please prepare the arrest memo under Section 36 and inform my family under Section 48. I will not make any statement until I speak to my lawyer.",
+      "escalation": [
+        "Demand arrest memo (S.36 - D.K. Basu)",
+        "Call NALSA helpline 15100 for free legal aid",
+        "Refuse to sign blank papers",
+        "If not before Magistrate in 24hrs file habeas corpus",
+        "Report torture to NHRC (nhrc.nic.in)"
+      ],
+      "what_not_to_do": "Do not confess under pressure. Do not sign blank papers. Do not bribe.",
+      "source_statutes": [
+        "BNSS 2023 S.36",
+        "BNSS 2023 S.38",
+        "BNSS 2023 S.57",
+        "D.K. Basu v State of WB 1997",
+        "Constitution Art.22"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_ARREST_003_women",
+      "country": "IN",
+      "category": "ARREST",
+      "sub_issue": "WOMEN_ARREST_RIGHTS",
+      "trigger_keywords": [
+        "woman arrested",
+        "female arrest",
+        "lady police",
+        "night arrest woman",
+        "mahila"
+      ],
+      "situation_description": "A woman being arrested or detained by police",
+      "right_plain": "A woman CANNOT be arrested between sunset and sunrise except with JMFC permission. Only a woman officer can arrest. No male officer can touch a woman during arrest.",
+      "right_formal": "BNSS 2023 - Section 43; Constitution Art.21",
+      "script": "I am a woman and under Section 43 of the BNSS, you cannot arrest me at night without Judicial Magistrate permission. I have the right to be arrested only by a woman police officer. No male officer may touch me.",
+      "escalation": [
+        "Demand woman police officer (S.43 BNSS)",
+        "Ask for JMFC permission order for night arrest",
+        "NCW helpline 7827-170-170",
+        "State Women Commission",
+        "High Court Art.226"
+      ],
+      "what_not_to_do": "Do not go with male officers alone. Do not physically resist.",
+      "source_statutes": [
+        "BNSS 2023 S.43",
+        "Constitution Art.21"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_SEARCH_001_home_entry",
+      "country": "IN",
+      "category": "HOME_SEARCH",
+      "sub_issue": "WARRANTLESS_HOME_ENTRY",
+      "trigger_keywords": [
+        "police at door",
+        "search warrant",
+        "raid",
+        "home search",
+        "enter house",
+        "talaashi"
+      ],
+      "situation_description": "Police at your door wanting to enter and search your home",
+      "right_plain": "Police CANNOT enter without a search warrant from a Magistrate, except in emergencies. Even with warrant, search needs two independent witnesses from the locality.",
+      "right_formal": "BNSS 2023 - Sections 94, 105; Constitution Art.21",
+      "script": "Officer, please show me a valid search warrant from a Magistrate. Under the BNSS, you need a warrant to enter my home. I request the search be conducted with two independent witnesses from my neighbourhood as required by law.",
+      "escalation": [
+        "Ask to see search warrant",
+        "Demand two local witnesses (S.105 BNSS)",
+        "Video record the entire search",
+        "Get copy of panchnama",
+        "File complaint if illegal (SP or Art.226)"
+      ],
+      "what_not_to_do": "Do not physically block police. Do not destroy evidence. Do not sign panchnama without reading.",
+      "source_statutes": [
+        "BNSS 2023 S.94",
+        "BNSS 2023 S.105",
+        "Constitution Art.21"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_RECORD_001_filming_police",
+      "country": "IN",
+      "category": "RECORDING_POLICE",
+      "sub_issue": "RIGHT_TO_FILM",
+      "trigger_keywords": [
+        "record police",
+        "video police",
+        "filming cop",
+        "delete video",
+        "phone seize",
+        "camera"
+      ],
+      "situation_description": "You want to record police or they are stopping you / deleting your footage",
+      "right_plain": "You can record police performing duties in public under Article 19(1)(a). Police cannot seize or delete recordings without warrant. Bombay HC ruled filming in police stations is not an offence.",
+      "right_formal": "Constitution Art.19(1)(a); Kerala Police Act 2011 S.33(2); Puttaswamy 2017",
+      "script": "I am recording this interaction peacefully from a safe distance under Article 19(1)(a) of the Constitution. I am not interfering with your duty. You cannot seize my device or delete recordings without a warrant.",
+      "escalation": [
+        "Continue recording from safe distance",
+        "If device seized note officer details",
+        "File complaint for illegal seizure (SP)",
+        "NHRC complaint",
+        "High Court writ under Art.226"
+      ],
+      "what_not_to_do": "Do not obstruct police while recording. Do not push camera in faces. Do not record in restricted areas.",
+      "source_statutes": [
+        "Constitution Art.19(1)(a)",
+        "Constitution Art.21",
+        "Puttaswamy 2017",
+        "Kerala Police Act 2011 S.33(2)"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_DETAIN_001_id_check",
+      "country": "IN",
+      "category": "DETENTION",
+      "sub_issue": "STOP_AND_ID",
+      "trigger_keywords": [
+        "id check",
+        "identity card",
+        "papers show",
+        "suspicious",
+        "loitering",
+        "roka hai"
+      ],
+      "situation_description": "Police stopping you and demanding identification without specific reason",
+      "right_plain": "No general law requires carrying ID at all times. Police cannot detain you solely for not having ID. But refusing to give your NAME can lead to arrest under Section 39 BNSS.",
+      "right_formal": "BNSS 2023 - Sections 35, 39; Constitution Art.21",
+      "script": "Officer, I am happy to tell you my name and address. May I ask what offence I am suspected of? I would like to know the reason for being stopped.",
+      "escalation": [
+        "Give name and address (avoid S.39 issues)",
+        "Ask reason for being stopped",
+        "If not under arrest ask if free to leave",
+        "Note officer details",
+        "File complaint if illegally detained"
+      ],
+      "what_not_to_do": "Do not refuse to give your name. Do not be aggressive. Do not run.",
+      "source_statutes": [
+        "BNSS 2023 S.35",
+        "BNSS 2023 S.39",
+        "Constitution Art.21"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_COMPLAINT_001_fir_refusal",
+      "country": "IN",
+      "category": "FILING_COMPLAINT",
+      "sub_issue": "FIR_REFUSAL",
+      "trigger_keywords": [
+        "FIR refuse",
+        "police wont file",
+        "complaint not taken",
+        "report not registered"
+      ],
+      "situation_description": "Police refusing to register your FIR (First Information Report)",
+      "right_plain": "Police are LEGALLY BOUND to register FIR for cognizable offences. Refusal is punishable. You can send complaint to SP by post, approach Magistrate, or file online.",
+      "right_formal": "BNSS 2023 - Section 173; Lalita Kumari v Govt of UP (2014)",
+      "script": "Officer, under Section 173 of the BNSS and the Supreme Court ruling in Lalita Kumari, you are legally required to register my FIR. Refusal is itself punishable. Please register my complaint now.",
+      "escalation": [
+        "Insist citing Lalita Kumari",
+        "Written complaint by registered post to SP",
+        "Approach SP directly",
+        "Judicial Magistrate under S.175 BNSS",
+        "Online at digitalpolice.gov.in"
+      ],
+      "what_not_to_do": "Do not bribe police. Do not file false FIR. Do not threaten.",
+      "source_statutes": [
+        "BNSS 2023 S.173",
+        "BNSS 2023 S.175",
+        "Lalita Kumari v Govt of UP 2014"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_COMPLAINT_002_misconduct",
+      "country": "IN",
+      "category": "FILING_COMPLAINT",
+      "sub_issue": "POLICE_MISCONDUCT",
+      "trigger_keywords": [
+        "police misconduct",
+        "police complaint",
+        "abuse by police",
+        "police beating",
+        "corrupt police"
+      ],
+      "situation_description": "Filing a complaint against police misconduct (abuse, corruption, illegal detention)",
+      "right_plain": "Multiple channels: Police Complaints Authority, NHRC, State Human Rights Commission, SP Office. For serious abuse approach High Court. Compensation available for groundless arrest.",
+      "right_formal": "Prakash Singh v Union of India (2006); NHRC Act 1993; BNSS 2023 S.399; Constitution Art.226",
+      "script": "I wish to file a formal complaint regarding police misconduct. I am documenting the officer details and incident. I will file with the NHRC / State Human Rights Commission / SP Office.",
+      "escalation": [
+        "Document everything (date, time, officer, witnesses)",
+        "Written complaint to SP by registered post",
+        "State Police Complaints Authority",
+        "NHRC online at nhrc.nic.in",
+        "High Court writ Art.226",
+        "Compensation under S.399 BNSS"
+      ],
+      "what_not_to_do": "Do not file false complaints. Do not confront officer directly. Do not delay.",
+      "source_statutes": [
+        "Prakash Singh v Union of India 2006",
+        "NHRC Act 1993",
+        "BNSS 2023 S.399",
+        "Constitution Art.226"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_DEVICE_001_phone_search",
+      "country": "IN",
+      "category": "DEVICE_SEARCH",
+      "sub_issue": "PHONE_SEARCH",
+      "trigger_keywords": [
+        "phone search",
+        "check phone",
+        "unlock password",
+        "data extract",
+        "social media check"
+      ],
+      "situation_description": "Police demanding to search your phone, messages, or social media",
+      "right_plain": "Police CANNOT search your phone without consent or court order. Phone is protected under right to privacy (Art.21). Even during arrest, physical search does not cover digital data extraction.",
+      "right_formal": "Constitution Art.21; Puttaswamy 2017; BNSS 2023 S.49; IT Act 2000 S.69",
+      "script": "Officer, my phone is protected under the right to privacy (Puttaswamy, Supreme Court). You need a court order under Section 69 of the IT Act to search my phone. I do not consent to unlocking my device.",
+      "escalation": [
+        "Politely refuse to unlock",
+        "Ask for written court order",
+        "If phone seized demand receipt",
+        "Contact lawyer / NALSA 15100",
+        "NHRC or High Court Art.226"
+      ],
+      "what_not_to_do": "Do not hand over unlocked phone. Do not delete data in front of officers. Do not physically resist.",
+      "source_statutes": [
+        "Constitution Art.21",
+        "Puttaswamy 2017",
+        "BNSS 2023 S.49",
+        "IT Act 2000 S.69"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_BAIL_001_bailable_offence",
+      "country": "IN",
+      "category": "BAIL_RIGHTS",
+      "sub_issue": "BAILABLE_OFFENCE_BAIL",
+      "trigger_keywords": [
+        "bail",
+        "bailable",
+        "release",
+        "bail right",
+        "zamaanat",
+        "jail"
+      ],
+      "situation_description": "You are arrested for a bailable offence and police are not granting bail",
+      "right_plain": "For bailable offences, bail is your ABSOLUTE RIGHT. Police MUST release you on bail. They cannot refuse. If they do, a Magistrate must grant it.",
+      "right_formal": "BNSS 2023 - Section 478; Constitution Art.21",
+      "script": "Officer, the offence I am charged with is bailable. Under Section 478 of the BNSS, I have an absolute right to bail. Please release me on bail immediately. Refusal to grant bail in a bailable offence is illegal.",
+      "escalation": [
+        "Cite S.478 BNSS — bail is a right not discretion",
+        "Ask to be produced before Magistrate",
+        "Magistrate MUST grant bail for bailable offence",
+        "Contact lawyer / NALSA 15100",
+        "High Court under Art.226"
+      ],
+      "what_not_to_do": "Do not pay money beyond the legally required bail bond. Do not accept informal release without proper bail order.",
+      "source_statutes": [
+        "BNSS 2023 S.478",
+        "Constitution Art.21",
+        "Satender Kumar Antil v CBI 2022"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_BAIL_002_default_bail",
+      "country": "IN",
+      "category": "BAIL_RIGHTS",
+      "sub_issue": "DEFAULT_BAIL_60_90",
+      "trigger_keywords": [
+        "default bail",
+        "chargesheet not filed",
+        "60 days",
+        "90 days",
+        "still in jail",
+        "no chargesheet"
+      ],
+      "situation_description": "You have been in custody and police have not filed chargesheet within the legal time limit",
+      "right_plain": "If police do not file chargesheet within 60 days (for offences up to 7 years) or 90 days (for offences 10+ years/life/death), you MUST be released on bail. This is called default bail — it is an indefeasible right.",
+      "right_formal": "BNSS 2023 - Section 187(3); Constitution Art.21",
+      "script": "Your Honour, the investigation has not been completed within the statutory period under Section 187(3) of the BNSS. I am entitled to default bail as an indefeasible right. I am prepared to furnish bail bond.",
+      "escalation": [
+        "Count days from first remand date",
+        "File application before Magistrate citing S.187(3)",
+        "Default bail must be filed BEFORE chargesheet is submitted",
+        "If Magistrate refuses appeal to Sessions Court",
+        "High Court under Art.226"
+      ],
+      "what_not_to_do": "Do not delay filing — apply the moment the 60/90 day period expires. Do not wait for chargesheet. Application must be filed before chargesheet reaches court.",
+      "source_statutes": [
+        "BNSS 2023 S.187(3)",
+        "Constitution Art.21",
+        "Hussainara Khatoon v State of Bihar 1979"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_BAIL_003_undertrial_release",
+      "country": "IN",
+      "category": "BAIL_RIGHTS",
+      "sub_issue": "UNDERTRIAL_HALF_SENTENCE",
+      "trigger_keywords": [
+        "undertrial",
+        "half sentence",
+        "long custody",
+        "jail superintendent",
+        "S.479"
+      ],
+      "situation_description": "You are an undertrial prisoner who has served more than half the maximum sentence for the offence",
+      "right_plain": "If you have served half the maximum sentence (or one-third for first-time offenders), the jail superintendent MUST apply for your bail. This is mandatory under Section 479 BNSS.",
+      "right_formal": "BNSS 2023 - Section 479; Hussainara Khatoon v State of Bihar 1979",
+      "script": "I have served more than half / one-third of the maximum sentence for the offence charged. Under Section 479 of the BNSS, the jail superintendent is required to apply for my release on bail. I request this be done immediately.",
+      "escalation": [
+        "Ask jail superintendent to file application under S.479",
+        "Contact DLSA (District Legal Services Authority) for free legal aid",
+        "NALSA helpline 15100",
+        "If no action file habeas corpus in High Court",
+        "NHRC complaint for prolonged illegal detention"
+      ],
+      "what_not_to_do": "Do not lose count of days served. Do not assume someone else will file for you.",
+      "source_statutes": [
+        "BNSS 2023 S.479",
+        "Hussainara Khatoon v State of Bihar 1979",
+        "Constitution Art.21"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_CUSTODY_001_torture",
+      "country": "IN",
+      "category": "CUSTODIAL_VIOLENCE",
+      "sub_issue": "TORTURE_IN_CUSTODY",
+      "trigger_keywords": [
+        "police torture",
+        "beaten in custody",
+        "third degree",
+        "custodial violence",
+        "police ne maara",
+        "torture"
+      ],
+      "situation_description": "You or someone you know is being tortured or beaten in police custody",
+      "right_plain": "Custodial torture is ILLEGAL and a violation of Article 21. The Supreme Court in D.K. Basu laid down binding guidelines. You are entitled to medical examination, and can claim compensation. The officer can face criminal prosecution.",
+      "right_formal": "Constitution Art.21; D.K. Basu v State of WB 1997; Nilabati Behera v State of Orissa 1993; BNSS 2023 S.36",
+      "script": "I am being subjected to physical violence in custody. This violates Article 21 of the Constitution and the D.K. Basu guidelines. I demand immediate medical examination and I will be filing a complaint with the NHRC and the Magistrate.",
+      "escalation": [
+        "Demand immediate medical examination (S.53 BNSS)",
+        "Report to Magistrate at next production",
+        "File NHRC complaint at nhrc.nic.in",
+        "File complaint with State Human Rights Commission",
+        "Claim compensation — Nilabati Behera precedent allows it",
+        "Criminal prosecution of officer under BNS S.115 (voluntarily causing hurt by public servant)"
+      ],
+      "what_not_to_do": "Do not sign any confession or statement under duress. Do not retaliate physically. Try to remember officer names and details.",
+      "source_statutes": [
+        "Constitution Art.21",
+        "D.K. Basu v State of WB 1997",
+        "Nilabati Behera v State of Orissa 1993",
+        "BNSS 2023 S.36",
+        "BNSS 2023 S.53"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_CUSTODY_002_death_in_custody",
+      "country": "IN",
+      "category": "CUSTODIAL_VIOLENCE",
+      "sub_issue": "CUSTODIAL_DEATH",
+      "trigger_keywords": [
+        "death in custody",
+        "custodial death",
+        "died in police station",
+        "lock up death",
+        "encounter killing"
+      ],
+      "situation_description": "A family member or someone you know has died in police custody or in a police encounter",
+      "right_plain": "Every custodial death MUST be reported to NHRC within 24 hours. A mandatory magisterial inquiry must be conducted. Family is entitled to compensation. In encounter deaths, NHRC guidelines require independent investigation.",
+      "right_formal": "NHRC 1993 guidelines; PUCL v State of Maharashtra 2014; Constitution Art.21; BNSS 2023 S.194",
+      "script": "A person has died in police custody / in a police encounter. I demand that this be reported to the NHRC within 24 hours and a magisterial inquiry be conducted as required by law. The family is entitled to compensation.",
+      "escalation": [
+        "Ensure NHRC is notified within 24 hours",
+        "Demand magisterial inquiry (mandatory for all custodial deaths)",
+        "File complaint with NHRC directly at nhrc.nic.in",
+        "For encounter deaths cite PUCL v Maharashtra — 16-point guidelines",
+        "File PIL/writ in High Court",
+        "Seek compensation under public law remedy"
+      ],
+      "what_not_to_do": "Do not accept police version without independent inquiry. Do not delay. Preserve all evidence and documents.",
+      "source_statutes": [
+        "NHRC guidelines 1993",
+        "PUCL v State of Maharashtra 2014",
+        "Constitution Art.21",
+        "BNSS 2023 S.194"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_CONFESSION_001_coerced",
+      "country": "IN",
+      "category": "FORCED_CONFESSION",
+      "sub_issue": "COERCED_STATEMENT",
+      "trigger_keywords": [
+        "forced confession",
+        "sign statement",
+        "confess",
+        "zabardasti",
+        "pressure to confess",
+        "police statement"
+      ],
+      "situation_description": "Police pressuring you to sign a confession or make a statement",
+      "right_plain": "Any confession made to a police officer is INADMISSIBLE in court. You cannot be compelled to be a witness against yourself (Art.20(3)). Do NOT sign anything without reading it. Do NOT sign blank papers.",
+      "right_formal": "Bharatiya Sakshya Adhiniyam 2023 - Sections 21, 22, 23; Constitution Art.20(3)",
+      "script": "I will not make any statement or sign any document under pressure. Under the Bharatiya Sakshya Adhiniyam, confessions to police are inadmissible. Under Article 20(3) of the Constitution, I cannot be compelled to be a witness against myself. I want to speak to my lawyer first.",
+      "escalation": [
+        "Refuse to sign anything without reading",
+        "Demand to meet lawyer (S.38 BNSS)",
+        "Any confession to police is inadmissible (BSA S.21)",
+        "Report coercion to Magistrate at next production",
+        "File complaint with NHRC for coercion"
+      ],
+      "what_not_to_do": "Do NOT sign any paper without reading every word. Do NOT sign blank papers. Do NOT confess under pressure — it is inadmissible anyway.",
+      "source_statutes": [
+        "Bharatiya Sakshya Adhiniyam 2023 S.21",
+        "BSA 2023 S.22",
+        "BSA 2023 S.23",
+        "Constitution Art.20(3)"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_RESTRAINT_001_handcuffs",
+      "country": "IN",
+      "category": "USE_OF_FORCE",
+      "sub_issue": "HANDCUFF_USE",
+      "trigger_keywords": [
+        "handcuffs",
+        "handcuff",
+        "hathkadi",
+        "tied up",
+        "restrained",
+        "rope"
+      ],
+      "situation_description": "Police using handcuffs on you or excessive physical restraint",
+      "right_plain": "Handcuffs should NOT be used routinely. The Supreme Court has ruled handcuffing is inhuman and can only be used in exceptional cases with written reasons. Section 46 BNSS prohibits unnecessary restraint.",
+      "right_formal": "BNSS 2023 - Section 46; Prem Shankar Shukla v Delhi Admin 1980; Sunil Batra v Delhi Admin 1978",
+      "script": "I object to being handcuffed without justification. Under Section 46 of the BNSS and the Supreme Court ruling in Prem Shankar Shukla, handcuffing requires exceptional circumstances with written reasons. I am cooperating and there is no need for restraint.",
+      "escalation": [
+        "Cite S.46 BNSS — no unnecessary restraint",
+        "Ask for written reasons for handcuffing",
+        "Report to Magistrate at next production",
+        "File complaint with NHRC",
+        "Seek compensation for inhuman treatment"
+      ],
+      "what_not_to_do": "Do not physically resist the handcuffing. Object verbally and note the details for complaint.",
+      "source_statutes": [
+        "BNSS 2023 S.46",
+        "Prem Shankar Shukla v Delhi Admin 1980",
+        "Sunil Batra v Delhi Admin 1978"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_MINOR_001_juvenile_arrest",
+      "country": "IN",
+      "category": "MINORS_RIGHTS",
+      "sub_issue": "JUVENILE_ARREST",
+      "trigger_keywords": [
+        "minor arrested",
+        "child arrested",
+        "juvenile",
+        "under 18",
+        "bachcha pakda",
+        "school student arrested"
+      ],
+      "situation_description": "A person under 18 (minor/juvenile) is being arrested or detained by police",
+      "right_plain": "A minor can ONLY be handled by the Special Juvenile Police Unit or Child Welfare Police Officer. They CANNOT be kept in a police lockup or jail — only an Observation Home. Must be produced before JJB within 24 hours. Bail is the norm, not exception.",
+      "right_formal": "Juvenile Justice Act 2015 - Sections 10, 12; Constitution Art.21",
+      "script": "This person is a minor under 18 years of age. Under Section 10 of the Juvenile Justice Act, they must be handled by the Special Juvenile Police Unit. They cannot be placed in a police lockup. They must be produced before the Juvenile Justice Board within 24 hours.",
+      "escalation": [
+        "Demand Special Juvenile Police Unit or Child Welfare Officer (S.10 JJ Act)",
+        "Child CANNOT be in police lockup — only Observation Home",
+        "Must be before JJB within 24 hours",
+        "Bail is default for minors (S.12 JJ Act)",
+        "For petty/serious offences no FIR — only general diary entry",
+        "Contact District Child Protection Unit",
+        "NCPCR (National Commission for Protection of Child Rights) helpline"
+      ],
+      "what_not_to_do": "Do not let the child be kept in a regular police lockup. Do not let them be interrogated without a parent/guardian present.",
+      "source_statutes": [
+        "Juvenile Justice Act 2015 S.10",
+        "JJ Act 2015 S.12",
+        "JJ Act 2015 S.107",
+        "Constitution Art.21"
+      ],
+      "severity": "critical"
+    },
+    {
+      "id": "IN_PROTEST_001_assembly",
+      "country": "IN",
+      "category": "PROTEST_RIGHTS",
+      "sub_issue": "RIGHT_TO_PROTEST",
+      "trigger_keywords": [
+        "protest",
+        "rally",
+        "dharna",
+        "demonstration",
+        "section 144",
+        "lathi charge",
+        "tear gas",
+        "assembly"
+      ],
+      "situation_description": "You are at a protest or demonstration and police are trying to disperse or arrest you",
+      "right_plain": "You have the right to peaceful assembly under Article 19(1)(b). Police need a Section 163 BNSS (old S.144) order from a Magistrate to restrict assembly. Even then, use of force must be proportional. Lathi charge without warning is illegal.",
+      "right_formal": "Constitution Art.19(1)(b); BNSS 2023 - Sections 163, 170; Ramlila Maidan case 2012",
+      "script": "We are exercising our right to peaceful assembly under Article 19(1)(b). Is there a Section 163 order in force? If so, please show us the order. Any use of force must be proportional and with prior warning.",
+      "escalation": [
+        "Ask to see the S.163 BNSS order",
+        "Video record any police action",
+        "If detained ask for grounds of detention",
+        "Contact lawyer / legal aid",
+        "File complaint for excessive force with NHRC",
+        "High Court writ under Art.226"
+      ],
+      "what_not_to_do": "Do not use violence. Do not obstruct emergency vehicles. Do not destroy property. Keep protest peaceful.",
+      "source_statutes": [
+        "Constitution Art.19(1)(b)",
+        "BNSS 2023 S.163",
+        "BNSS 2023 S.170",
+        "Ramlila Maidan Incident v Home Secretary 2012"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_SUMMONS_001_police_notice",
+      "country": "IN",
+      "category": "POLICE_SUMMONS",
+      "sub_issue": "NOTICE_TO_APPEAR",
+      "trigger_keywords": [
+        "police notice",
+        "summons",
+        "appear at station",
+        "called to thana",
+        "S.35 notice",
+        "notice under 160"
+      ],
+      "situation_description": "You received a police notice or summons to appear at the station",
+      "right_plain": "A notice under Section 35(3) BNSS means police want to question you but are NOT arresting you. You must comply with the notice. Women and persons under 15 cannot be required to attend the police station — police must visit them.",
+      "right_formal": "BNSS 2023 - Sections 35(3), 179; Arnesh Kumar v State of Bihar 2014",
+      "script": "I have received your notice and I will comply. I request that the questioning be conducted during reasonable hours. I will be accompanied by my lawyer as is my right.",
+      "escalation": [
+        "Comply with the notice to avoid arrest (S.35(6))",
+        "Bring a lawyer with you",
+        "Women and under-15s need not go to station (S.179 BNSS)",
+        "Do not sign any statement without reading",
+        "If arrested during questioning assert S.47 rights"
+      ],
+      "what_not_to_do": "Do NOT ignore the notice — non-compliance can lead to arrest under S.35(6). Do not go alone if possible. Do not make statements without a lawyer.",
+      "source_statutes": [
+        "BNSS 2023 S.35(3)",
+        "BNSS 2023 S.179",
+        "Arnesh Kumar v State of Bihar 2014"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_BRIBE_001_police_demanding",
+      "country": "IN",
+      "category": "POLICE_CORRUPTION",
+      "sub_issue": "BRIBE_DEMAND",
+      "trigger_keywords": [
+        "bribe",
+        "rishwat",
+        "police money",
+        "pay to release",
+        "hafta",
+        "corrupt cop",
+        "settle karo"
+      ],
+      "situation_description": "A police officer demanding money or a bribe from you",
+      "right_plain": "Demanding or accepting a bribe is a criminal offence under the Prevention of Corruption Act. You can report this to the Anti-Corruption Bureau, Vigilance Department, or CBI. You can also trap the officer with ACB assistance.",
+      "right_formal": "Prevention of Corruption Act 1988 - Sections 7, 13; CBI jurisdiction",
+      "script": "I will not pay any money that is not legally required. If you are demanding payment, this is an offence under the Prevention of Corruption Act. I will comply with all legal requirements but not with any illegal demands.",
+      "escalation": [
+        "Do not pay — note officer details",
+        "File complaint with Anti-Corruption Bureau (state-specific)",
+        "File complaint with CBI if central govt officer",
+        "Use trap mechanism with ACB assistance",
+        "File complaint on pgportal.gov.in",
+        "Vigilance department of state police"
+      ],
+      "what_not_to_do": "Do not pay the bribe. Do not threaten the officer openly. Document everything secretly if possible.",
+      "source_statutes": [
+        "Prevention of Corruption Act 1988 S.7",
+        "Prevention of Corruption Act 1988 S.13"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_SEIZE_001_vehicle",
+      "country": "IN",
+      "category": "PROPERTY_SEIZURE",
+      "sub_issue": "VEHICLE_SEIZURE",
+      "trigger_keywords": [
+        "vehicle seized",
+        "car taken",
+        "bike seized",
+        "tow",
+        "impound",
+        "gaadi le gaye",
+        "superdari"
+      ],
+      "situation_description": "Police have seized your vehicle or personal property",
+      "right_plain": "Police must give you a receipt (seizure memo) for anything seized. You can apply for interim custody (superdari) of your vehicle to the Magistrate. Vehicle cannot be kept indefinitely — you have the right to get it back.",
+      "right_formal": "BNSS 2023 - Sections 106, 107, 108; Sunderbhai Ambalal Desai v State of Gujarat 2002",
+      "script": "Please provide me a proper seizure memo with details of what is being seized. I will apply to the Magistrate for superdari (interim custody) of my vehicle as is my right under the BNSS.",
+      "escalation": [
+        "Demand written seizure memo",
+        "Apply for superdari before Magistrate (Sunderbhai Ambalal Desai precedent)",
+        "Magistrate should grant custody unless vehicle is needed as evidence",
+        "If denied approach Sessions Court",
+        "File RTI for status of seized property"
+      ],
+      "what_not_to_do": "Do not physically prevent seizure. Do not pay money to get vehicle back informally.",
+      "source_statutes": [
+        "BNSS 2023 S.106",
+        "BNSS 2023 S.107",
+        "Sunderbhai Ambalal Desai v State of Gujarat 2002"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "IN_MEDICAL_001_right_to_exam",
+      "country": "IN",
+      "category": "MEDICAL_RIGHTS",
+      "sub_issue": "MEDICAL_EXAMINATION_AFTER_VIOLENCE",
+      "trigger_keywords": [
+        "medical exam",
+        "doctor",
+        "injury",
+        "beaten",
+        "hospital",
+        "medical report",
+        "MLC"
+      ],
+      "situation_description": "You need a medical examination after police violence or while in custody",
+      "right_plain": "You have the right to medical examination within 48 hours of arrest (D.K. Basu). Every 48 hours thereafter. The medical report is crucial evidence. You can request examination by a doctor of your choice at your expense.",
+      "right_formal": "BNSS 2023 - Sections 51, 53; D.K. Basu v State of WB 1997",
+      "script": "I demand a medical examination as required under the D.K. Basu guidelines and Section 53 of the BNSS. I want my injuries documented in a Medico-Legal Certificate. I also request examination by a doctor of my choice.",
+      "escalation": [
+        "Demand medical exam at nearest government hospital",
+        "Get Medico-Legal Certificate (MLC) — crucial evidence",
+        "Request exam by your own doctor at your cost",
+        "Report injuries to Magistrate at next production",
+        "NHRC complaint with medical evidence",
+        "Use MLC as evidence in compensation claim"
+      ],
+      "what_not_to_do": "Do not refuse medical examination. Do not delay — injuries heal and evidence is lost.",
+      "source_statutes": [
+        "BNSS 2023 S.51",
+        "BNSS 2023 S.53",
+        "D.K. Basu v State of WB 1997"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "IN_CYBER_001_online_complaint",
+      "country": "IN",
+      "category": "CYBER_COMPLAINT",
+      "sub_issue": "ONLINE_HARASSMENT_FIR",
+      "trigger_keywords": [
+        "cyber complaint",
+        "online harassment",
+        "social media threat",
+        "cybercrime",
+        "zero FIR",
+        "online FIR"
+      ],
+      "situation_description": "You want to file a complaint for online harassment or cybercrime and police are refusing",
+      "right_plain": "You can file cybercrime complaints online through the National Cybercrime Portal. You can also file a Zero FIR at ANY police station regardless of jurisdiction. The police station must accept it and transfer to the correct jurisdiction.",
+      "right_formal": "IT Act 2000 - Sections 66, 67; BNSS 2023 - Section 173 (Zero FIR provision); Lalita Kumari 2014",
+      "script": "I want to file a complaint for cybercrime / online harassment. Under the BNSS, any police station must accept a Zero FIR regardless of jurisdiction. I can also file online at cybercrime.gov.in. Please register my complaint.",
+      "escalation": [
+        "File online at cybercrime.gov.in",
+        "File Zero FIR at any police station",
+        "If refused cite Lalita Kumari — mandatory FIR registration",
+        "Approach Cyber Crime Cell of state police",
+        "Written complaint to SP by registered post"
+      ],
+      "what_not_to_do": "Do not delete the evidence (screenshots, messages). Do not engage with the harasser. Preserve all digital evidence.",
+      "source_statutes": [
+        "IT Act 2000 S.66",
+        "IT Act 2000 S.67",
+        "BNSS 2023 S.173",
+        "Lalita Kumari v Govt of UP 2014"
+      ],
+      "severity": "medium"
+    }
+  ]
+}

@@ -1,0 +1,396 @@
+{
+  "metadata": {
+    "dataset_name": "Situational Rights Taxonomy (SRT) - Brazil Police Encounters",
+    "version": "1.0.0",
+    "country": "Brazil",
+    "focus": "Civilian rights during police (polícia) encounters",
+    "total_entries": 17,
+    "encounter_types": [
+      "ID_CHECK",
+      "TRAFFIC_STOP",
+      "ARREST",
+      "SEARCH",
+      "BAIL_RIGHTS",
+      "RIGHT_TO_SILENCE",
+      "LEGAL_AID",
+      "FILING_COMPLAINT",
+      "USE_OF_FORCE",
+      "RECORDING_POLICE",
+      "MINORS_RIGHTS",
+      "PROTEST_RIGHTS",
+      "RACIAL_PROFILING",
+      "RESTRAINT_MEASURES"
+    ],
+    "statutes_covered": [
+      "Federal Constitution of Brazil (Constituição Federal), Article 5",
+      "Code of Criminal Procedure (Código de Processo Penal, CPP)",
+      "Abuse of Authority Law (Lei 13.869/2019)",
+      "Brazilian Traffic Code (Código de Trânsito Brasileiro, CTB)",
+      "Statute of the Child and Adolescent (Estatuto da Criança e do Adolescente, ECA)",
+      "Statute of Racial Equality (Estatuto da Igualdade Racial, Lei 12.288/2010)"
+    ],
+    "disclaimer": "General legal information only, based on the formal text of Brazilian federal law. Local implementation and enforcement can vary, and formal legal protections are not always applied consistently in practice, particularly around racial profiling, which is well documented in Brazil. Always verify with a licensed Brazilian lawyer (advogado) or the Defensoria Pública. All entries require attorney review before use.",
+    "license": "CC BY-SA 4.0",
+    "created_by": "Vanya Kumar",
+    "project": "The Law in Your Language - CivilianIQ"
+  },
+  "entries": [
+    {
+      "id": "BR_ID_001_document_check",
+      "country": "BR",
+      "category": "ID_CHECK",
+      "sub_issue": "DOCUMENT_CHECK",
+      "trigger_keywords": ["revista de documentos", "check my documents", "id check", "police stopped me", "policia me parou"],
+      "situation_description": "Police stop you and ask to check your identity documents",
+      "right_plain": "You are generally expected to be able to identify yourself when lawfully asked by police, though Brazilian law does not require carrying an ID document on you at all times in every situation. You can ask the officer to identify themselves and state the reason for the approach.",
+      "right_formal": "Federal Constitution Art. 5",
+      "script": "Boa tarde, pode se identificar e explicar o motivo da abordagem? Aqui estão meus documentos.",
+      "escalation": [
+        "Ask the officer to identify themselves",
+        "Ask for the specific reason for the approach",
+        "Comply by showing identification if you have it",
+        "Note the officer's name, badge number (matrícula), and unit",
+        "If you believe the approach was unlawful or discriminatory, you can file a complaint with the Corregedoria or Ouvidoria da Polícia"
+      ],
+      "what_not_to_do": "Do not refuse to identify yourself once a lawful reason is given. Do not physically resist even if you disagree — raise concerns afterward through a complaint.",
+      "source_statutes": ["Federal Constitution Art. 5"],
+      "severity": "low"
+    },
+    {
+      "id": "BR_TRAFFIC_001_documents",
+      "country": "BR",
+      "category": "TRAFFIC_STOP",
+      "sub_issue": "REQUIRED_DOCUMENTS",
+      "trigger_keywords": ["policia rodoviaria me parou", "traffic police stopped me", "blitz", "CNH", "carteira de motorista"],
+      "situation_description": "Traffic police stop your vehicle at a checkpoint (blitz) or individually",
+      "right_plain": "You must show your driver's licence (CNH) and vehicle registration/licensing document (CRLV) when asked during a lawful traffic stop. You are entitled to know the reason for the stop.",
+      "right_formal": "Brazilian Traffic Code (CTB) Art. 159, 231-244",
+      "script": "Boa tarde, aqui está minha CNH e o CRLV. Qual é o motivo da abordagem?",
+      "escalation": [
+        "Provide the required documents calmly",
+        "Ask the specific reason for the stop if unclear",
+        "Note the officer's details if you plan to dispute a fine (multa)",
+        "Traffic fines can generally be formally contested (recurso) with the traffic authority (DETRAN) within a set deadline",
+        "Keep a copy or photo of any ticket (auto de infração) issued"
+      ],
+      "what_not_to_do": "Do not argue extensively at the roadside about a disputed fine — contest it through the proper administrative process afterward. Do not drive away before being told you may leave.",
+      "source_statutes": ["Brazilian Traffic Code Art. 159", "Art. 231-244"],
+      "severity": "low"
+    },
+    {
+      "id": "BR_TRAFFIC_002_vehicle_search",
+      "country": "BR",
+      "category": "TRAFFIC_STOP",
+      "sub_issue": "VEHICLE_SEARCH",
+      "trigger_keywords": ["revistar meu carro", "search my car", "vasculhar o veiculo", "search my phone"],
+      "situation_description": "Police want to search your vehicle or phone during a traffic stop",
+      "right_plain": "Police generally need reasonable grounds (fundada suspeita) to search a vehicle without consent, such as visible evidence of a crime or matching a specific alert. Searching the contents of a phone generally requires a stronger legal basis, similar to a home search, given constitutional protections for private communications.",
+      "right_formal": "Code of Criminal Procedure Art. 240-244; Federal Constitution Art. 5, XII (secrecy of communications)",
+      "script": "Qual é a suspeita fundada para essa revista? Eu não autorizo a busca no meu celular sem uma justificativa legal clara.",
+      "escalation": [
+        "Ask for the specific grounds for the search",
+        "You can state that you do not consent, while not physically resisting",
+        "Note the officers' details and the time and place",
+        "Consult a lawyer or the Defensoria Pública afterward if you believe the search was unlawful",
+        "An unlawful search can be challenged in court and may affect the admissibility of evidence found"
+      ],
+      "what_not_to_do": "Do not physically block officers from searching if they proceed anyway — object verbally and challenge it afterward through a lawyer.",
+      "source_statutes": ["Code of Criminal Procedure Art. 240-244", "Federal Constitution Art. 5 XII"],
+      "severity": "high"
+    },
+    {
+      "id": "BR_ARREST_001_flagrante_or_warrant",
+      "country": "BR",
+      "category": "ARREST",
+      "sub_issue": "ARREST_GROUNDS",
+      "trigger_keywords": ["fui preso", "i was arrested", "voz de prisao", "arrested by police"],
+      "situation_description": "You are placed under arrest (voz de prisão)",
+      "right_plain": "No one can be arrested except when caught in the act of committing a crime (flagrante delito) or by a written and reasoned order from a judicial authority, except in cases of military crime or crimes defined by military justice as specified by the Constitution.",
+      "right_formal": "Federal Constitution Art. 5, LXI",
+      "script": "Por favor, informe qual é a fundamentação da minha prisão — é em flagrante ou há um mandado judicial?",
+      "escalation": [
+        "Ask for the specific legal basis for the arrest",
+        "Ask to see a warrant if one is claimed to exist",
+        "Ask that your family and a lawyer be notified",
+        "Note the time of arrest — this matters for the custody hearing deadline",
+        "Contact a lawyer or the Defensoria Pública immediately"
+      ],
+      "what_not_to_do": "Do not physically resist arrest even if you believe it is unlawful — challenge it through the legal process instead, including at the custody hearing.",
+      "source_statutes": ["Federal Constitution Art. 5, LXI"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_ARREST_002_notification_and_silence",
+      "country": "BR",
+      "category": "ARREST",
+      "sub_issue": "NOTIFICATION_AND_SILENCE",
+      "trigger_keywords": ["direito de permanecer calado", "right to remain silent", "notify my family", "comunicar a prisao"],
+      "situation_description": "You have just been arrested and want to know your immediate rights",
+      "right_plain": "The arrest of any person must be immediately communicated to a competent judge and to the family of the arrested person, or to a person indicated by them. An arrested person has the right to identify those responsible for their arrest or interrogation, and the right to remain silent, with assistance of family and a lawyer guaranteed.",
+      "right_formal": "Federal Constitution Art. 5, LXII and LXIII",
+      "script": "Quero permanecer em silêncio e exercer meu direito de comunicar minha prisão à minha família e a um advogado.",
+      "escalation": [
+        "State clearly that you are exercising your right to remain silent",
+        "Ask that your family and a lawyer be notified immediately",
+        "Ask for the names and roles of the officers involved in the arrest",
+        "Do not sign any statement without a lawyer reviewing it",
+        "A custody hearing (audiência de custódia) must generally occur within 24 hours"
+      ],
+      "what_not_to_do": "Do not answer questions before a lawyer is present if you can avoid it. Do not sign documents you have not read and understood.",
+      "source_statutes": ["Federal Constitution Art. 5, LXII", "Art. 5, LXIII"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_ARREST_003_custody_hearing",
+      "country": "BR",
+      "category": "ARREST",
+      "sub_issue": "CUSTODY_HEARING",
+      "trigger_keywords": ["audiencia de custodia", "custody hearing", "presented to a judge", "24 horas"],
+      "situation_description": "You have been arrested and are waiting to be presented to a judge",
+      "right_plain": "Following an arrest, the person must generally be brought before a judge within 24 hours for a custody hearing (audiência de custódia), where the judge reviews the legality of the arrest and decides whether to convert it to preventive detention, apply alternative measures, or order release.",
+      "right_formal": "Code of Criminal Procedure Art. 310; National Council of Justice Resolution 213/2015",
+      "script": "Gostaria de saber quando será a audiência de custódia e se meu advogado poderá estar presente.",
+      "escalation": [
+        "Ask when the custody hearing is scheduled",
+        "Ensure your lawyer or a public defender is notified and can attend",
+        "At the hearing, any mistreatment during arrest should be reported to the judge",
+        "If the 24-hour deadline is exceeded without justification, this is a serious issue a lawyer should raise immediately",
+        "The judge can order release, alternative measures, or, in some cases, continued detention — each of these can be appealed"
+      ],
+      "what_not_to_do": "Do not waive the custody hearing without understanding what you are giving up — consult a lawyer first if at all possible.",
+      "source_statutes": ["Code of Criminal Procedure Art. 310"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_SEARCH_001_home_search",
+      "country": "BR",
+      "category": "SEARCH",
+      "sub_issue": "HOME_SEARCH",
+      "trigger_keywords": ["busca domiciliar", "search my home", "mandado de busca", "police at my door"],
+      "situation_description": "Police want to enter or search your home",
+      "right_plain": "The home is an inviolable asylum. No one may enter without the resident's consent, except in cases of flagrante delicto or disaster, to provide help, or, during the day, by judicial order (mandado de busca e apreensão). At night, entry without consent is only allowed for flagrante delicto, disaster, or to render aid.",
+      "right_formal": "Federal Constitution Art. 5, XI",
+      "script": "Vocês têm um mandado judicial de busca e apreensão? Posso ver o documento antes de autorizar a entrada.",
+      "escalation": [
+        "Ask to see the judicial warrant before allowing entry",
+        "Note whether it is day or night — this affects what is legally permitted without a warrant",
+        "Note the names of officers present and any witnesses",
+        "Ask for an inventory of anything taken",
+        "Contact a lawyer immediately afterward — an unlawful entry can be challenged in court"
+      ],
+      "what_not_to_do": "Do not physically obstruct officers even if you believe the entry is unlawful — object verbally and challenge it afterward through a lawyer.",
+      "source_statutes": ["Federal Constitution Art. 5, XI"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_SEARCH_002_body_search",
+      "country": "BR",
+      "category": "SEARCH",
+      "sub_issue": "PERSONAL_SEARCH",
+      "trigger_keywords": ["revista pessoal", "body search", "pat down", "busca pessoal"],
+      "situation_description": "Police want to conduct a personal/body search",
+      "right_plain": "A personal search generally requires a founded suspicion (fundada suspeita) that the person is carrying a weapon or evidence of a crime — it should not be arbitrary. Personal searches should be conducted by an officer of the same sex where reasonably possible.",
+      "right_formal": "Code of Criminal Procedure Art. 244",
+      "script": "Qual é a suspeita fundada para essa revista pessoal?",
+      "escalation": [
+        "Ask for the specific grounds for the search",
+        "Note the officers' names and the time/location",
+        "If you believe the search was arbitrary or discriminatory, this can be raised in a complaint",
+        "Consult a lawyer or the Defensoria Pública afterward",
+        "Document the experience as soon as possible while details are fresh"
+      ],
+      "what_not_to_do": "Do not physically resist a search being conducted by police — object verbally and follow up through the proper channels afterward.",
+      "source_statutes": ["Code of Criminal Procedure Art. 244"],
+      "severity": "medium"
+    },
+    {
+      "id": "BR_BAIL_001_bail_and_habeas_corpus",
+      "country": "BR",
+      "category": "BAIL_RIGHTS",
+      "sub_issue": "FIANCA_HABEAS_CORPUS",
+      "trigger_keywords": ["fiança", "bail", "habeas corpus", "release from custody"],
+      "situation_description": "You or a family member wants to seek release from custody",
+      "right_plain": "For many offences, release on bail (fiança) is possible, sometimes set directly by the police delegado for minor offences, otherwise by a judge. Separately, habeas corpus is a constitutional remedy anyone can request — including without a lawyer, in principle — whenever someone suffers or is threatened with unlawful restraint on their freedom of movement.",
+      "right_formal": "Federal Constitution Art. 5, LXVI, LXVIII; Code of Criminal Procedure Art. 322-350",
+      "script": "Gostaria de saber se cabe fiança neste caso, e gostaria que meu advogado avaliasse a possibilidade de um habeas corpus.",
+      "escalation": [
+        "Ask whether bail is available for the specific offence",
+        "Have a lawyer evaluate whether a habeas corpus petition is appropriate",
+        "Gather documentation supporting release (stable residence, employment, family ties)",
+        "Understand and follow any conditions attached to release strictly",
+        "Stay in contact with your lawyer as the case proceeds"
+      ],
+      "what_not_to_do": "Do not violate any conditions of release. Do not assume release means the case is over — it is not an acquittal.",
+      "source_statutes": ["Federal Constitution Art. 5, LXVI", "Art. 5, LXVIII", "Code of Criminal Procedure Art. 322-350"],
+      "severity": "high"
+    },
+    {
+      "id": "BR_SILENCE_001_right_to_remain_silent",
+      "country": "BR",
+      "category": "RIGHT_TO_SILENCE",
+      "sub_issue": "RIGHT_TO_SILENCE",
+      "trigger_keywords": ["direito de ficar calado", "do i have to answer", "right to remain silent", "sou obrigado a responder"],
+      "situation_description": "Police are questioning you and you want to know if you must answer",
+      "right_plain": "You have a constitutional right to remain silent and not produce evidence against yourself. This applies from the moment of any police approach through formal interrogation. Silence cannot be used against you as an admission of guilt.",
+      "right_formal": "Federal Constitution Art. 5, LXIII",
+      "script": "Quero exercer meu direito constitucional de permanecer calado até falar com um advogado.",
+      "escalation": [
+        "State clearly that you are invoking your right to remain silent",
+        "Ask for a lawyer before answering further questions",
+        "Do not sign a statement (depoimento) without a lawyer reviewing it",
+        "This right applies at every stage, not just formal interrogation",
+        "Contact the Defensoria Pública if you cannot afford a lawyer"
+      ],
+      "what_not_to_do": "Do not assume you must answer 'just a few questions' — the right applies from the first approach. Do not sign anything you have not read and understood.",
+      "source_statutes": ["Federal Constitution Art. 5, LXIII"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_LEGAL_AID_001_right_to_lawyer",
+      "country": "BR",
+      "category": "LEGAL_AID",
+      "sub_issue": "RIGHT_TO_COUNSEL",
+      "trigger_keywords": ["preciso de um advogado", "i want a lawyer", "defensoria publica", "legal aid"],
+      "situation_description": "You or a family member wants legal representation",
+      "right_plain": "Everyone has the right to a lawyer at every stage of a criminal process. If you cannot afford one, the state provides free legal assistance through the Defensoria Pública, which is a full public institution dedicated to this, not just an appointed private lawyer.",
+      "right_formal": "Federal Constitution Art. 5, LXXIV; Art. 134 (Defensoria Pública)",
+      "script": "Não posso pagar um advogado particular. Gostaria de ser atendido pela Defensoria Pública.",
+      "escalation": [
+        "Ask to be assisted by the Defensoria Pública if you cannot afford a private lawyer",
+        "Ask for the contact information of the nearest Defensoria Pública office",
+        "Family can retain a private lawyer at any point, alongside or instead of a public defender",
+        "Keep any lawyer's contact information and case number for follow-up",
+        "The Defensoria Pública also assists with civil, family, and other legal matters, not just criminal cases"
+      ],
+      "what_not_to_do": "Do not proceed with important questioning without legal representation if it can be avoided. Do not assume you must afford a private lawyer — the Defensoria Pública is a genuine right, not charity.",
+      "source_statutes": ["Federal Constitution Art. 5, LXXIV", "Art. 134"],
+      "severity": "high"
+    },
+    {
+      "id": "BR_COMPLAINT_001_misconduct",
+      "country": "BR",
+      "category": "FILING_COMPLAINT",
+      "sub_issue": "POLICE_MISCONDUCT",
+      "trigger_keywords": ["denunciar policial", "file a complaint against police", "police misconduct", "corregedoria"],
+      "situation_description": "You want to file a complaint about police misconduct",
+      "right_plain": "Complaints about police conduct can be filed with the police force's internal affairs unit (Corregedoria), the Public Prosecutor's Office (Ministério Público), or the state/municipal Ombudsman's Office (Ouvidoria). The Abuse of Authority Law also creates specific criminal offences for police misconduct.",
+      "right_formal": "Abuse of Authority Law (Lei 13.869/2019)",
+      "script": "Quero registrar uma denúncia sobre a conduta de um policial. Podem me orientar sobre o procedimento?",
+      "escalation": [
+        "File a written complaint with the Corregedoria of the relevant police force",
+        "File a complaint with the Ministério Público, which oversees police legality",
+        "Use the Ouvidoria (Ombudsman) of the state public security department if available",
+        "Keep detailed written records, dates, and any evidence (photos, videos, witness contacts)",
+        "A lawyer or human rights organization can help draft and route a complaint for serious cases"
+      ],
+      "what_not_to_do": "Do not delay filing — gather evidence and file while details are fresh. Do not rely on a single channel; documenting through multiple official channels can help.",
+      "source_statutes": ["Abuse of Authority Law (Lei 13.869/2019)"],
+      "severity": "medium"
+    },
+    {
+      "id": "BR_FORCE_001_excessive_force",
+      "country": "BR",
+      "category": "USE_OF_FORCE",
+      "sub_issue": "EXCESSIVE_FORCE",
+      "trigger_keywords": ["policia usou forca excessiva", "police used excessive force", "injured by police", "violencia policial"],
+      "situation_description": "You experienced or witnessed what seemed like excessive use of force by police",
+      "right_plain": "Police may only use force proportional to the actual resistance or threat presented, and excessive or abusive force can constitute a crime under the Abuse of Authority Law, in addition to giving rise to a civil claim against the state for damages.",
+      "right_formal": "Abuse of Authority Law (Lei 13.869/2019); Federal Constitution Art. 37, §6 (state civil liability)",
+      "script": "Preciso registrar o uso de força pelo policial e buscar atendimento médico e jurídico.",
+      "escalation": [
+        "Seek medical attention and document injuries immediately with photos and medical records",
+        "Get contact details of any witnesses",
+        "File a complaint with the Corregedoria, Ministério Público, or Ouvidoria",
+        "Consult a lawyer or the Defensoria Pública about a civil claim against the state",
+        "Report the incident to a human rights organization if the case is serious"
+      ],
+      "what_not_to_do": "Do not delay medical treatment or documentation. Do not discard damaged clothing or other physical evidence.",
+      "source_statutes": ["Abuse of Authority Law (Lei 13.869/2019)", "Federal Constitution Art. 37, §6"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_RECORD_001_filming_police",
+      "country": "BR",
+      "category": "RECORDING_POLICE",
+      "sub_issue": "RIGHT_TO_FILM",
+      "trigger_keywords": ["filmar a policia", "recording police", "can i film this", "gravar abordagem"],
+      "situation_description": "You want to record a police interaction, or an officer is telling you to stop",
+      "right_plain": "Recording police performing their public duties in a public place is generally understood to be protected by the constitutional rights to free expression and information, and several state laws and municipal ordinances have explicitly reinforced this right, particularly for recording police approaches. You should not physically interfere with the officer's work while recording.",
+      "right_formal": "Federal Constitution Art. 5, IV, IX, XIV (expression, information); various state 'right to record' laws",
+      "script": "Estou apenas registrando a abordagem, sem interferir no seu trabalho, o que é meu direito.",
+      "escalation": [
+        "Continue recording calmly from a safe, non-interfering distance",
+        "State that you have a legal right to record",
+        "Do not delete footage even if asked",
+        "If your device is taken, ask for a receipt and note officer details",
+        "Contact a lawyer, the Defensoria Pública, or a digital rights organization if your rights were violated"
+      ],
+      "what_not_to_do": "Do not physically get in the officer's way while recording. Do not delete your recording under pressure.",
+      "source_statutes": ["Federal Constitution Art. 5, IV", "IX", "XIV"],
+      "severity": "medium"
+    },
+    {
+      "id": "BR_MINOR_001_juvenile_rights",
+      "country": "BR",
+      "category": "MINORS_RIGHTS",
+      "sub_issue": "MINOR_ENCOUNTER",
+      "trigger_keywords": ["adolescente apreendido", "minor detained by police", "juvenile rights", "my child was stopped"],
+      "situation_description": "A minor (under 18) is stopped, questioned, or apprehended by police",
+      "right_plain": "Minors are subject to a distinct system (apreensão, not prisão, for those under 18) under the Statute of the Child and Adolescent, with an emphasis on socio-educational rather than punitive measures. A parent, guardian, or responsible adult should generally be notified immediately, and the Conselho Tutelar (Guardianship Council) may also be involved.",
+      "right_formal": "Statute of the Child and Adolescent (ECA), Law 8.069/1990, Art. 106-109",
+      "script": "Este é um adolescente. Peço que os responsáveis e o Conselho Tutelar sejam notificados imediatamente.",
+      "escalation": [
+        "Insist that a parent/guardian be notified immediately",
+        "Ask that the Conselho Tutelar be involved as appropriate",
+        "Retain a lawyer experienced in juvenile matters (Vara da Infância e Juventude) as early as possible",
+        "Ask for the specific legal basis for any apprehension",
+        "Keep the guardian informed and involved at every stage"
+      ],
+      "what_not_to_do": "Do not allow a minor to be questioned alone without a guardian present if it can be avoided. Do not let a minor sign any statement without a guardian and, where possible, a lawyer.",
+      "source_statutes": ["Statute of the Child and Adolescent Art. 106-109"],
+      "severity": "critical"
+    },
+    {
+      "id": "BR_PROTEST_001_assembly_rights",
+      "country": "BR",
+      "category": "PROTEST_RIGHTS",
+      "sub_issue": "PEACEFUL_ASSEMBLY",
+      "trigger_keywords": ["manifestacao", "protest rights", "demonstration", "police at protest", "direito de reuniao"],
+      "situation_description": "You are participating in a peaceful protest or public demonstration",
+      "right_plain": "All persons may hold peaceful meetings in public places, without needing prior authorization, as long as they do not frustrate another meeting previously called for the same place, with prior notice to the competent authority required only so it can be informed, not so it can approve or deny the gathering.",
+      "right_formal": "Federal Constitution Art. 5, XVI",
+      "script": "Esta é uma manifestação pacífica, protegida pelo artigo 5º, inciso XVI da Constituição.",
+      "escalation": [
+        "Stay peaceful and avoid physical confrontation",
+        "Know that prior notice, where practical, strengthens your legal position but authorization is not required for a peaceful gathering",
+        "Document the situation safely if possible",
+        "Note officer badge numbers and any use of force",
+        "Contact a lawyer, the Defensoria Pública, or a human rights organization if your rights were violated"
+      ],
+      "what_not_to_do": "Do not engage in violence or property destruction — this can change the legal character of the gathering. Do not ignore a clear, lawful order in a genuine emergency situation.",
+      "source_statutes": ["Federal Constitution Art. 5, XVI"],
+      "severity": "high"
+    },
+    {
+      "id": "BR_RACIAL_001_racial_profiling",
+      "country": "BR",
+      "category": "RACIAL_PROFILING",
+      "sub_issue": "DISCRIMINATORY_STOP",
+      "trigger_keywords": ["abordagem racista", "racial profiling", "stopped because of my race", "discriminacao policial"],
+      "situation_description": "You believe you were stopped, searched, or treated differently by police because of your race",
+      "right_plain": "Racial discrimination is constitutionally prohibited and criminalized under Brazilian law, and racially discriminatory policing is a well-documented, serious concern that human rights organizations and researchers have extensively studied in Brazil. You have the right to file a complaint specifically citing racial discrimination, which can be pursued alongside any other complaint about the encounter.",
+      "right_formal": "Federal Constitution Art. 5 (equality); Statute of Racial Equality (Lei 12.288/2010); Law 7.716/1989 (racism as a crime)",
+      "script": "Quero registrar que considero esta abordagem discriminatória, e vou buscar orientação jurídica sobre isso.",
+      "escalation": [
+        "Document the encounter in as much detail as possible, including exactly what was said",
+        "Get contact details of any witnesses",
+        "File a complaint that specifically raises the racial discrimination aspect, with the Corregedoria, Ministério Público, or Ouvidoria",
+        "Consult a lawyer, the Defensoria Pública, or an organization focused on racial justice in policing",
+        "Consider whether a criminal complaint under Law 7.716/1989 is appropriate with a lawyer's guidance"
+      ],
+      "what_not_to_do": "Do not assume this is not worth reporting — documented patterns matter for accountability even when individual cases are hard to prove. Do not physically resist during the encounter itself.",
+      "source_statutes": ["Statute of Racial Equality (Lei 12.288/2010)", "Law 7.716/1989"],
+      "severity": "high"
+    }
+  ]
+}

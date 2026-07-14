@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-serif;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background-color: #2b1a0f;
+  background-image: radial-gradient(circle at 1px 1px, rgba(243, 216, 121, 0.05) 1px, transparent 0),
+    linear-gradient(120deg, #331f13 0%, #2b1a0f 30%, #241509 60%, #2b1a0f 100%);
+  background-size: 22px 22px, 220% 220%;
+  background-attachment: fixed;
+  color: #f7ecd3;
+  animation: backgroundPan 24s ease-in-out infinite;
+}
+
+@keyframes backgroundPan {
+  0%,
+  100% {
+    background-position: 0 0, 0% 50%;
+  }
+  50% {
+    background-position: 0 0, 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    animation: none;
+  }
+}
