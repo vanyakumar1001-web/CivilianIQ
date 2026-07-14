@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { BiBlock, BiInline } from '@/components/Bilingual';
 import Glossary from '@/components/Glossary';
 import CountryGate from '@/components/CountryGate';
+import SosButton from '@/components/SosButton';
 import { useLanguage, useT } from '@/lib/LanguageContext';
 import type { CoachResponse, DiarizedTurn, SpeakerRole, ApiError } from '@/types';
 
-const AUTO_ANALYZE_DEBOUNCE_MS = 3000;
+// While recording, re-analyze the transcript on this cadence so the coach reacts
+// continuously to the encounter instead of waiting for the citizen to pause.
+const ANALYSIS_INTERVAL_MS = 4000;
 
 // Deepgram nova-3's language=multi (code-switching) mode only supports this fixed
 // set of languages. Anything outside it must use its own single-language code instead.
@@ -60,7 +63,7 @@ export default function RecordPage() {
   const audioRecorderRef = useRef<MediaRecorder | null>(null);
   const turnsRef = useRef<DiarizedTurn[]>([]);
   const lastAnalyzedRef = useRef('');
-  const autoAnalyzeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const analysisIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const coachingRef = useRef(false);
 
   const [isRecording, setIsRecording] = useState(false);
@@ -207,22 +210,20 @@ export default function RecordPage() {
     }
   }
 
-  // Auto-analyze a few seconds after the transcript changes, so the coach reacts
-  // as the encounter unfolds without waiting for a manual click.
+  // Re-analyze continuously while recording, so the coach reacts to the encounter
+  // in real time instead of waiting for the citizen to pause. runAnalysis() itself
+  // no-ops if the transcript hasn't changed or a call is already in flight.
   useEffect(() => {
     if (!isRecording) return;
-    if (!transcript.trim()) return;
-
-    if (autoAnalyzeTimerRef.current) clearTimeout(autoAnalyzeTimerRef.current);
-    autoAnalyzeTimerRef.current = setTimeout(() => {
+    analysisIntervalRef.current = setInterval(() => {
       runAnalysis();
-    }, AUTO_ANALYZE_DEBOUNCE_MS);
+    }, ANALYSIS_INTERVAL_MS);
 
     return () => {
-      if (autoAnalyzeTimerRef.current) clearTimeout(autoAnalyzeTimerRef.current);
+      if (analysisIntervalRef.current) clearInterval(analysisIntervalRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transcript, isRecording]);
+  }, [isRecording]);
 
   async function startRecording() {
     setError(null);
@@ -317,7 +318,7 @@ export default function RecordPage() {
     streamRef.current?.getTracks().forEach((track) => track.stop());
     setIsRecording(false);
 
-    if (autoAnalyzeTimerRef.current) clearTimeout(autoAnalyzeTimerRef.current);
+    if (analysisIntervalRef.current) clearInterval(analysisIntervalRef.current);
     runAnalysis();
   }
 
@@ -339,13 +340,16 @@ export default function RecordPage() {
           <a href="/" className="text-accent text-sm hover:underline">
             <BiInline id="backToSearch" />
           </a>
-          <button
-            onClick={clearPreference}
-            className="text-xs rounded-full border border-peach/40 bg-brown-light/60 px-3 py-1 text-ink-light hover:border-blush-deep transition-colors"
-            title="Change country / language"
-          >
-            {countryOption.flag} {languageOption.nativeLabel}
-          </button>
+          <div className="flex items-center gap-2">
+            <SosButton />
+            <button
+              onClick={clearPreference}
+              className="text-xs rounded-full border border-peach/40 bg-brown-light/60 px-3 py-1 text-ink-light hover:border-blush-deep transition-colors"
+              title="Change country / language"
+            >
+              {countryOption.flag} {languageOption.nativeLabel}
+            </button>
+          </div>
         </div>
         <h1 className="text-2xl font-bold mt-2 mb-1 tracking-wide bg-gradient-to-r from-butter via-peach to-blush bg-clip-text text-transparent">
           Live Recording + AI Coach

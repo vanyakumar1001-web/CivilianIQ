@@ -90,6 +90,16 @@ export const LANGUAGE_NAMES: Record<LanguageCode, string> = {
   pt: 'Portuguese',
 };
 
+// The single most recognized number to call for police/emergency help in each country.
+export const EMERGENCY_NUMBERS: Record<CountryCode, string> = {
+  IN: '112',
+  US: '911',
+  CN: '110',
+  RU: '112',
+  BR: '190',
+  GB: '999',
+};
+
 type SecondaryLanguageCode = Exclude<LanguageCode, 'en'>;
 type TranslationEntry = { en: string } & Partial<Record<SecondaryLanguageCode, string>>;
 
@@ -291,13 +301,31 @@ export const translations: Record<string, TranslationEntry> = {
     pt: 'Policial',
   },
   autoAnalyzeHint: {
-    en: 'The AI coach analyzes automatically a few seconds after you pause — or tap below anytime.',
-    hi: 'कुछ बोलने के बाद AI कोच अपने आप विश्लेषण करता है — या कभी भी नीचे टैप करें।',
-    es: 'El asistente de IA analiza automáticamente unos segundos después de que hagas una pausa, o toca abajo en cualquier momento.',
-    fr: "Le coach IA analyse automatiquement quelques secondes après votre pause — ou appuyez ci-dessous à tout moment.",
-    zh: 'AI 教练会在你停顿几秒后自动分析——你也可以随时点击下方按钮。',
-    ru: 'ИИ-помощник автоматически анализирует ситуацию через несколько секунд после паузы — либо нажмите кнопку ниже в любой момент.',
-    pt: 'O assistente de IA analisa automaticamente alguns segundos depois que você pausa — ou toque abaixo a qualquer momento.',
+    en: 'The AI coach analyzes continuously while you record — no need to pause, or tap below anytime.',
+    hi: 'रिकॉर्डिंग के दौरान AI कोच लगातार विश्लेषण करता है — रुकने की ज़रूरत नहीं, या कभी भी नीचे टैप करें।',
+    es: 'El asistente de IA analiza continuamente mientras grabas — no hace falta pausar, o toca abajo en cualquier momento.',
+    fr: "Le coach IA analyse en continu pendant l'enregistrement — pas besoin de faire de pause, ou appuyez ci-dessous à tout moment.",
+    zh: '录制过程中 AI 教练会持续分析——无需暂停，你也可以随时点击下方按钮。',
+    ru: 'ИИ-помощник анализирует непрерывно во время записи — останавливаться не нужно, либо нажмите кнопку ниже в любой момент.',
+    pt: 'O assistente de IA analisa continuamente enquanto você grava — não é preciso pausar, ou toque abaixo a qualquer momento.',
+  },
+  sos: {
+    en: 'SOS',
+    hi: 'एसओएस',
+    es: 'SOS',
+    fr: 'SOS',
+    zh: '紧急求助',
+    ru: 'СОС',
+    pt: 'SOS',
+  },
+  sosConfirm: {
+    en: 'Tap again to call {num}',
+    hi: '{num} पर कॉल करने के लिए फिर से टैप करें',
+    es: 'Toca de nuevo para llamar al {num}',
+    fr: 'Appuyez à nouveau pour appeler le {num}',
+    zh: '再次点击以拨打 {num}',
+    ru: 'Нажмите ещё раз, чтобы позвонить по номеру {num}',
+    pt: 'Toque novamente para ligar para o {num}',
   },
   analyzing: {
     en: 'Analyzing…',

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 import RightsCard from '@/components/RightsCard';
 import Glossary from '@/components/Glossary';
 import CountryGate from '@/components/CountryGate';
+import SosButton from '@/components/SosButton';
 import { BiBlock, BiInline } from '@/components/Bilingual';
 import { useLanguage, useT } from '@/lib/LanguageContext';
 import type { ClassifyResponse, MatchedRightsEntry, GlossaryTerm, ApiError } from '@/types';
@@ -100,17 +101,20 @@ export default function HomePage() {
   return (
     <main className="min-h-screen text-ink px-4 py-10">
       <div className="max-w-2xl mx-auto">
-        <div className="flex items-center justify-between mb-1">
+        <div className="flex items-center justify-between mb-1 gap-2">
           <h1 className="text-4xl font-bold tracking-wide bg-gradient-to-r from-butter via-peach to-blush bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(244,169,122,0.25)] animate-glow">
             CivilianIQ
           </h1>
-          <button
-            onClick={clearPreference}
-            className="text-xs rounded-full border border-peach/40 bg-brown-light/60 px-3 py-1 text-ink-light hover:border-blush-deep transition-colors"
-            title="Change country / language"
-          >
-            {countryOption.flag} {languageOption.nativeLabel}
-          </button>
+          <div className="flex items-center gap-2">
+            <SosButton />
+            <button
+              onClick={clearPreference}
+              className="text-xs rounded-full border border-peach/40 bg-brown-light/60 px-3 py-1 text-ink-light hover:border-blush-deep transition-colors"
+              title="Change country / language"
+            >
+              {countryOption.flag} {languageOption.nativeLabel}
+            </button>
+          </div>
         </div>
         <BiBlock as="p" className="text-ink-light mb-1" id="tagline" />
         <p className="text-sm text-ink-faint mb-6 italic">
