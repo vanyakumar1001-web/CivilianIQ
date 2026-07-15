@@ -58,17 +58,36 @@ export async function POST(request: NextRequest) {
     response = await client.messages.create({
       model: 'claude-sonnet-5',
       max_tokens: 4096,
-      system:
-        `You are a real-time legal rights coach listening to a live, speaker-diarized transcript of a citizen-police encounter in ${countryName}. The transcript is pre-segmented by voice into turns labeled "Speaker 0", "Speaker 1", etc. — these speaker boundaries come from real audio diarization and are already correct; do not re-split or second-guess them. Based on what has been said so far, tell the citizen what right may apply right now and give them a short, calm sentence to say. Ground every suggestion strictly in the provided taxonomy — never invent a right, statute, or script. If nothing in the transcript clearly triggers a specific right yet, say triggered=false and give brief general guidance (stay calm, be polite, do not resist). Provide every piece of advice and every script in both English and calm, natural, everyday ${languageName}. Also scan the transcript and your own advice for legal or procedural jargon a layperson wouldn't know and explain each one in one or two very simple sentences, in both English and ${languageName}, as if explaining to a worried friend with no legal background. Return an empty glossary if no jargon appears. Finally, for every distinct "Speaker N" label that appears in the transcript, decide whether that speaker is the "officer" or the "citizen" based on what they say — the officer typically demands documents, gives orders, or asks accusatory questions; the citizen typically responds, asks about their rights, or asserts something. Return one entry per distinct speaker number seen.`,
+      // Runs every few seconds while recording — thinking is disabled and effort kept
+      // low so the continuous analysis loop stays responsive.
+      thinking: { type: 'disabled' },
+      system: [
+        {
+          type: 'text',
+          text: `You are a real-time legal rights coach listening to a live, speaker-diarized transcript of a citizen-police encounter in ${countryName}. The transcript is pre-segmented by voice into turns labeled "Speaker 0", "Speaker 1", etc. — these speaker boundaries come from real audio diarization and are already correct; do not re-split or second-guess them. Based on what has been said so far, tell the citizen what right may apply right now and give them a short, calm sentence to say. Ground every suggestion strictly in the provided taxonomy — never invent a right, statute, or script. If nothing in the transcript clearly triggers a specific right yet, say triggered=false and give brief general guidance (stay calm, be polite, do not resist). Provide every piece of advice and every script in both English and calm, natural, everyday ${languageName}. Also scan the transcript and your own advice for legal or procedural jargon a layperson wouldn't know and explain each one in one or two very simple sentences, in both English and ${languageName}, as if explaining to a worried friend with no legal background. Return an empty glossary if no jargon appears. Finally, for every distinct "Speaker N" label that appears in the transcript, decide whether that speaker is the "officer" or the "citizen" based on what they say — the officer typically demands documents, gives orders, or asks accusatory questions; the citizen typically responds, asks about their rights, or asserts something. Return one entry per distinct speaker number seen.`,
+          cache_control: { type: 'ephemeral' },
+        },
+      ],
       messages: [
         {
           role: 'user',
-          content: `Live transcript so far:\n"""\n${transcript}\n"""\n\nTaxonomy:\n${JSON.stringify(
-            catalog
-          )}`,
+          content: [
+            {
+              // Stable per country — cached across the whole recording session
+              // (and across other users on the same country).
+              type: 'text',
+              text: `Taxonomy:\n${JSON.stringify(catalog)}`,
+              cache_control: { type: 'ephemeral' },
+            },
+            {
+              type: 'text',
+              text: `Live transcript so far:\n"""\n${transcript}\n"""`,
+            },
+          ],
         },
       ],
       output_config: {
+        effort: 'low',
         format: {
           type: 'json_schema',
           schema: {

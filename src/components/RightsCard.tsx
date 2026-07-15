@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { BiInline } from '@/components/Bilingual';
-import { useLanguage } from '@/lib/LanguageContext';
+import { useLanguage, useT } from '@/lib/LanguageContext';
 import type { LanguageOption } from '@/lib/i18n';
-import type { MatchedRightsEntry, Severity } from '@/types';
+import type { ApiError, MatchedRightsEntry, Severity } from '@/types';
 
 const SEVERITY_COLORS: Record<Severity, string> = {
   critical: 'bg-rose-100 text-rose-700 border-rose-300',
@@ -42,7 +42,12 @@ interface RightsCardProps {
 export default function RightsCard({ entry }: RightsCardProps) {
   const [copied, setCopied] = useState(false);
   const [showEscalation, setShowEscalation] = useState(false);
-  const { languageOption } = useLanguage();
+  const [translatedEscalation, setTranslatedEscalation] = useState<string[] | null>(
+    entry.translated?.escalation ?? null
+  );
+  const [loadingEscalation, setLoadingEscalation] = useState(false);
+  const { preference, languageOption } = useLanguage();
+  const t = useT();
 
   async function copyScript() {
     try {
@@ -51,6 +56,28 @@ export default function RightsCard({ entry }: RightsCardProps) {
       setTimeout(() => setCopied(false), 1500);
     } catch {
       // clipboard unavailable — ignore
+    }
+  }
+
+  async function toggleEscalation() {
+    const opening = !showEscalation;
+    setShowEscalation(opening);
+    if (!opening || translatedEscalation || loadingEscalation) return;
+    if (!preference || !languageOption || languageOption.code === 'en') return;
+
+    setLoadingEscalation(true);
+    try {
+      const res = await fetch('/api/translate-escalation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ entryId: entry.id, country: preference.country, language: preference.language }),
+      });
+      const data: { escalation: string[] } & Partial<ApiError> = await res.json();
+      if (res.ok) setTranslatedEscalation(data.escalation);
+    } catch {
+      // leave escalation English-only on failure — the steps themselves still show
+    } finally {
+      setLoadingEscalation(false);
     }
   }
 
@@ -98,10 +125,7 @@ export default function RightsCard({ entry }: RightsCardProps) {
         </p>
       </div>
 
-      <button
-        onClick={() => setShowEscalation((s) => !s)}
-        className="text-xs text-accent hover:underline mb-2"
-      >
+      <button onClick={toggleEscalation} className="text-xs text-accent hover:underline mb-2">
         {showEscalation ? <BiInline id="hideEscalation" /> : <BiInline id="ifNotWorking" />}
       </button>
 
@@ -110,9 +134,10 @@ export default function RightsCard({ entry }: RightsCardProps) {
           {entry.escalation.map((step, i) => (
             <li key={i}>
               {step}
-              <TranslatedLine text={entry.translated?.escalation?.[i]} className="text-ink ml-5" languageOption={languageOption} />
+              <TranslatedLine text={translatedEscalation?.[i]} className="text-ink ml-5" languageOption={languageOption} />
             </li>
           ))}
+          {loadingEscalation && <li className="list-none text-xs text-ink-faint italic">{t('translatingSteps').en}</li>}
         </ol>
       )}
 

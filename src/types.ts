@@ -20,7 +20,10 @@ export interface Translation {
   situation_description: string;
   right_plain: string;
   script: string;
-  escalation: string[];
+  // Not translated eagerly by /api/classify — escalation steps are hidden by
+  // default in the UI, so they're translated lazily via /api/translate-escalation
+  // only when the user expands them.
+  escalation?: string[];
   what_not_to_do: string;
 }
 

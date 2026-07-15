@@ -62,17 +62,36 @@ export async function POST(request: NextRequest) {
     response = await client.messages.create({
       model: 'claude-sonnet-5',
       max_tokens: 8192,
-      system:
-        `You match a citizen's description of a police encounter (written in English or a mix of English and ${languageName}) to the most relevant entries in a legal rights taxonomy. Only return entries that are genuinely relevant to what the citizen described, ranked best match first. If nothing is relevant, return an empty list. For every match, also translate the entry's situation, right_plain, script, escalation steps, and what_not_to_do into calm, natural, everyday ${languageName} — simple and reassuring, suitable for someone in a stressful moment. Translate faithfully; do not add or omit information. Finally, scan the text of the matched entries for legal or procedural jargon a layperson wouldn't know and explain each one in one or two very simple sentences, in both English and ${languageName}, as if explaining to a worried friend with no legal background. Skip this if no matches are found.`,
+      // Classification + translation is a structured-extraction task, not open-ended
+      // reasoning — thinking is disabled and effort kept low to cut response latency.
+      thinking: { type: 'disabled' },
+      system: [
+        {
+          type: 'text',
+          text: `You match a citizen's description of a police encounter (written in English or a mix of English and ${languageName}) to the most relevant entries in a legal rights taxonomy. Only return entries that are genuinely relevant to what the citizen described, ranked best match first. If nothing is relevant, return an empty list. For every match, also translate the entry's situation, right_plain, script, and what_not_to_do into calm, natural, everyday ${languageName} — simple and reassuring, suitable for someone in a stressful moment. Do not translate the escalation steps — those are shown separately only if the citizen asks for them. Translate faithfully; do not add or omit information. Finally, scan the text of the matched entries for legal or procedural jargon a layperson wouldn't know and explain each one in one or two very simple sentences, in both English and ${languageName}, as if explaining to a worried friend with no legal background. Skip this if no matches are found.`,
+          cache_control: { type: 'ephemeral' },
+        },
+      ],
       messages: [
         {
           role: 'user',
-          content: `Situation described by the citizen: "${query}"\n\nTaxonomy entries:\n${JSON.stringify(
-            catalog
-          )}\n\nPick up to 3 of the most relevant entry ids, provide ${languageName} translations for each, and build a plain-language glossary of any legal jargon in the matched text.`,
+          content: [
+            {
+              // Stable per country+language — cached so repeat queries (from
+              // any user) skip re-processing the full taxonomy every time.
+              type: 'text',
+              text: `Taxonomy entries:\n${JSON.stringify(catalog)}`,
+              cache_control: { type: 'ephemeral' },
+            },
+            {
+              type: 'text',
+              text: `Situation described by the citizen: "${query}"\n\nPick up to 3 of the most relevant entry ids from the taxonomy above, provide ${languageName} translations for each, and build a plain-language glossary of any legal jargon in the matched text.`,
+            },
+          ],
         },
       ],
       output_config: {
+        effort: 'low',
         format: {
           type: 'json_schema',
           schema: {
@@ -94,16 +113,9 @@ export async function POST(request: NextRequest) {
                         situation_description: { type: 'string' },
                         right_plain: { type: 'string' },
                         script: { type: 'string' },
-                        escalation: { type: 'array', items: { type: 'string' } },
                         what_not_to_do: { type: 'string' },
                       },
-                      required: [
-                        'situation_description',
-                        'right_plain',
-                        'script',
-                        'escalation',
-                        'what_not_to_do',
-                      ],
+                      required: ['situation_description', 'right_plain', 'script', 'what_not_to_do'],
                       additionalProperties: false,
                     },
                   },

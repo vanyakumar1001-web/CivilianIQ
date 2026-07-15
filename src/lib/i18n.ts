@@ -399,6 +399,15 @@ export const translations: Record<string, TranslationEntry> = {
     ru: 'Скрыть дальнейшие шаги',
     pt: 'Ocultar próximos passos',
   },
+  translatingSteps: {
+    en: 'Translating…',
+    hi: 'अनुवाद हो रहा है…',
+    es: 'Traduciendo…',
+    fr: 'Traduction en cours…',
+    zh: '翻译中…',
+    ru: 'Идёт перевод…',
+    pt: 'Traduzindo…',
+  },
   ifNotWorking: {
     en: "If this doesn't work →",
     hi: 'अगर यह काम न करे →',
